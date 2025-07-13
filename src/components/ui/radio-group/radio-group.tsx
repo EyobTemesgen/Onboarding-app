@@ -1,68 +1,18 @@
 import * as React from "react";
 import {
-  RadioGroup as MuiRadioGroup,
-  RadioGroupProps as MuiRadioGroupProps,
-  Radio,
   FormControlLabel,
   FormControlLabelProps,
-  Box
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
-const StyledRadioGroup = styled(MuiRadioGroup)<MuiRadioGroupProps>(({ theme }) => ({
-  display: 'grid',
-  gap: theme.spacing(1),
-}));
-
-const StyledRadio = styled(Radio)(({ theme }) => ({
-  '&.Mui-checked': {
-    color: theme.palette.primary.main,
-  },
-}));
-
-const CardContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '12px', 
-}));
-
-const CardOption = styled(Box)<{ selected?: boolean }>(({ theme, selected }) => ({
-  border: selected ? '1px solid #3b82f6' : '1px solid #e2e8f0',
-  borderRadius: '8px',
-  padding: '16px',
-  cursor: 'pointer',
-  transition: 'all 0.2s',
-  backgroundColor: selected ? 'rgba(59, 130, 246, 0.05)' : 'transparent', // bg-blue-50/50 when selected
-  '&:hover': {
-    backgroundColor: '#f8fafc',
-  },
-}));
-
-const CardContent = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'flex-start',
-  gap: '12px',
-}));
-
-const CardLabel = styled(Box)(({ theme }) => ({
-  flex: 1,
-}));
-
-const StyledRadioForCard = styled(StyledRadio)(({ theme }) => ({
-  marginTop: '4px', 
-}));
-
-interface Option {
-  value: string;
-  label: React.ReactNode;
-  disabled?: boolean;
-  className?: string;
-}
-
-interface RadioGroupProps extends MuiRadioGroupProps {
-  options?: Option[];
-  variant?: 'default' | 'card';
-}
+import { RadioGroupProps } from "./types";
+import {
+  StyledRadioGroup,
+  StyledRadio,
+  CardContainer,
+  CardOption,
+  CardContent,
+  CardLabel,
+  StyledRadioForCard
+} from "./styled";
 
 const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   ({ className, options, children, variant = 'default', ...props }, ref) => {

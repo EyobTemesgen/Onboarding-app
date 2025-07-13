@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/card/card";
 import { Progress } from "@/components/ui/progress";
 import WelcomeStep from "../Start/WelcomeStep";
 import ProductImportStep from "../ProductImport/ProductImportStep";

@@ -1,6 +1,6 @@
 import { CheckCircle, ArrowRight, CenterFocusStrong, FlashOn, Star } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/card/card";
 import { Button } from "@/components/ui/button";
 import { useFinishStyles } from "./styled";
 

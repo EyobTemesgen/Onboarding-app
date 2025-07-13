@@ -1,28 +1,32 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { RadioGroup } from "@/components/ui/radio-group";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Storage as HardDrive, Close as X, CalendarToday as Calendar, Mail } from "@mui/icons-material";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog/dialog";
+import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Mail } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useQuickbooksStyles } from "./styled";
 import { QUICKBOOKS_OPTIONS } from "./const.tsx";
 
 const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
-  const [showDialog, setShowDialog] = useState(false);
+  const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const classes = useQuickbooksStyles();
 
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    updateData("quickBooks", value);
+  const handleSelect = (optionId: string) => {
+    if (optionId === "desktop") {
+      setShowEnterpriseDialog(true);
+    } else {
+      updateData("quickBooks", optionId);
+    }
   };
 
   const handleSendInfo = () => {
     setEmailSent(true);
     setTimeout(() => {
-      setShowDialog(false);
+      setShowEnterpriseDialog(false);
       setEmailSent(false);
+      updateData("quickBooks", "desktop");
     }, 2000);
   };
 
@@ -56,14 +60,77 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
           </Typography>
         </Box>
 
-        <RadioGroup
-          value={data.quickBooks}
-          onChange={handleSelect}
-          options={QUICKBOOKS_OPTIONS}
-          variant="card"
-        />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 4 }}>
+          {QUICKBOOKS_OPTIONS.map((option) => {
+            const isSelected = data.quickBooks === option.value;
+            return (
+              <Box
+                key={option.value}
+                sx={{
+                  border: isSelected ? '2px solid #3b82f6' : '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  p: 3,
+                  cursor: 'pointer',
+                  backgroundColor: isSelected ? '#f0f9ff' : '#fff',
+                  position: 'relative',
+                  boxShadow: option.highlight && isSelected ? '0 0 0 2px #bbf7d0' : undefined,
+                  transition: 'all 0.2s',
+                  '&:hover': {
+                    backgroundColor: '#f8fafc',
+                  },
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                }}
+                onClick={() => handleSelect(option.value)}
+              >
+                {option.badge && (
+                  <Box sx={{
+                    position: 'absolute',
+                    top: -16,
+                    left: 24,
+                    background: '#22c55e',
+                    color: '#fff',
+                    fontSize: 12,
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: 1,
+                    zIndex: 1,
+                  }}>{option.badge}</Box>
+                )}
+                <Box sx={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  backgroundColor: isSelected
+                    ? '#dbeafe'
+                    : option.iconColor || '#e0e7ef',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mr: 2,
+                }}>
+                  {option.icon}
+                </Box>
+                <Box sx={{ flex: 1 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f172a', fontSize: 18, mb: 0.5 }}>{option.label}</Typography>
+                  <Typography variant="body2" sx={{ color: '#475569', fontSize: 15 }}>{option.description}</Typography>
+                </Box>
+                <Box sx={{ ml: 2 }}>
+                  <input
+                    type="radio"
+                    checked={isSelected}
+                    onChange={() => handleSelect(option.value)}
+                    style={{ width: 20, height: 20 }}
+                    aria-label={option.label}
+                  />
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
 
-        <Box className={classes.buttonContainer}>
+        <Box className={classes.buttonContainer} sx={{ mt: 4 }}>
           <Button variant="outline" onClick={onPrev} className={classes.backButton}>
             <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
             Back
@@ -73,77 +140,40 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
             disabled={!canProceed}
             className={classes.nextButton}
           >
-            Continue
+            Complete Setup
             <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
           </Button>
         </Box>
       </Box>
 
-      <Dialog open={showDialog}>
+      <Dialog open={showEnterpriseDialog}>
         <DialogContent sx={{ maxWidth: 448 }}>
           <DialogHeader>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <HardDrive sx={{ width: 20, height: 20, color: '#ea580c' }} />
-              <DialogTitle sx={{ fontWeight: 600, fontSize: 20, color: '#111827', p: 0 }}>
-                QuickBooks Integration Guide
-              </DialogTitle>
-            </Box>
+            <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              {QUICKBOOKS_OPTIONS.find(o => o.value === 'desktop')?.icon}
+              QuickBooks Desktop Integration
+            </DialogTitle>
             <DialogDescription>
-              Get step-by-step instructions for connecting your QuickBooks account.
+              QuickBooks Desktop requires our Advanced enterprise solution for full integration capabilities. 
+              Our team can show you how this works and discuss pricing options.
             </DialogDescription>
           </DialogHeader>
-
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <Box className={classes.infoBox}>
-              <Typography 
-                variant="h6" 
-                component="h4" 
-                sx={{ 
-                  fontWeight: 500, // font-medium
-                  color: '#9a3412', // text-orange-900
-                  fontSize: '16px',
-                  lineHeight: '24px',
-                  mb: 2
-                }}
-              >
-                What you'll get:
-              </Typography>
-              <Box className={classes.infoList}>
-                <Typography className={classes.infoListItem}>• Step-by-step connection guide</Typography>
-                <Typography className={classes.infoListItem}>• Best practices for inventory sync</Typography>
-                <Typography className={classes.infoListItem}>• Troubleshooting tips</Typography>
-                <Typography className={classes.infoListItem}>• Support contact information</Typography>
-              </Box>
-            </Box>
-
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#4b5563', // text-gray-600
-                fontSize: '14px', // text-sm = 14px
-                lineHeight: '20px'
-              }}
-            >
-              We'll send you a comprehensive guide with screenshots and detailed instructions.
-            </Typography>
+          <Box sx={{ background: '#fff7ed', border: '1px solid #fdba74', borderRadius: 2, p: 2, my: 2 }}>
+            <Typography sx={{ fontWeight: 500, color: '#9a3412', mb: 1 }}>What you'll get:</Typography>
+            <ul style={{ color: '#ea580c', fontSize: 15, margin: 0, paddingLeft: 18 }}>
+              <li>• Full QuickBooks Desktop sync</li>
+              <li>• Advanced inventory management</li>
+              <li>• Priority support</li>
+              <li>• Custom integrations</li>
+            </ul>
           </Box>
-
           <DialogFooter sx={{ display: 'flex', flexDirection: { xs: 'column-reverse', sm: 'row' }, justifyContent: { sm: 'flex-end' }, gap: 3 }}>
-            <Button variant="outline" onClick={() => setShowDialog(false)}>
+            <Button variant="outline" onClick={() => setShowEnterpriseDialog(false)}>
               Maybe Later
             </Button>
-            <Button className={classes.dialogButton} onClick={handleSendInfo}>
-              {emailSent ? (
-                <>
-                  <Calendar sx={{ mr: 2, width: 16, height: 16 }} />
-                  Sent!
-                </>
-              ) : (
-                <>
-                  <Mail sx={{ mr: 2, width: 16, height: 16 }} />
-                  Send Guide
-                </>
-              )}
+            <Button onClick={handleSendInfo} className={classes.dialogButton} sx={{ background: '#ea580c', color: '#fff', '&:hover': { background: '#c2410c' } }}>
+              <Mail sx={{ mr: 2, width: 16, height: 16 }} />
+              {emailSent ? "Sent!" : "Send Me Info"}
             </Button>
           </DialogFooter>
         </DialogContent>

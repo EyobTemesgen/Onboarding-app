@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { RadioGroup } from "@/components/ui/radio-group";
+import { RadioGroup } from "@/components/ui/radio-group/radio-group";
 import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
