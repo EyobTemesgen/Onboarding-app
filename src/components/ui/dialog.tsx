@@ -12,15 +12,15 @@ import {
   DialogContentTextProps as MuiDialogContentTextProps,
   IconButton,
   Typography,
-  TypographyProps
+  TypographyProps,
+  Box
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
-import { styled } from "@mui/material/styles";
 
 const Dialog = MuiDialog;
 
-const DialogContent = React.forwardRef<HTMLDivElement, MuiDialogContentProps>(
-  ({ className, children, ...props }, ref) => (
+const DialogContent = React.forwardRef<HTMLDivElement, MuiDialogContentProps & { onClose?: () => void }>(
+  ({ className, children, onClose, ...props }, ref) => (
     <MuiDialogContent
       ref={ref}
       className={className}
@@ -29,7 +29,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, MuiDialogContentProps>(
       {children}
       <IconButton
         aria-label="close"
-        onClick={() => props.onClose?.({} as any, 'escapeKeyDown')}
+        onClick={onClose}
         sx={{
           position: 'absolute',
           right: 8,
@@ -45,10 +45,10 @@ const DialogContent = React.forwardRef<HTMLDivElement, MuiDialogContentProps>(
 
 const DialogHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
+    <Box
       ref={ref}
       className={className}
-      style={{
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         gap: '6px',

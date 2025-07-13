@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Snackbar, Alert, AlertProps } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
 
 interface Toast {
   id: string;

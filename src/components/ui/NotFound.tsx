@@ -8,7 +8,7 @@ const Container = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '#f3f4f6', // bg-gray-100
+  backgroundColor: '#f3f4f6', 
 }));
 
 const Content = styled(Box)(({ theme }) => ({
@@ -16,22 +16,22 @@ const Content = styled(Box)(({ theme }) => ({
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  fontSize: '36px', // text-4xl
+  fontSize: '36px',
   fontWeight: 'bold',
-  marginBottom: '16px', // mb-4
+  marginBottom: '16px',
 }));
 
 const Subtitle = styled(Typography)(({ theme }) => ({
-  fontSize: '20px', // text-xl
-  color: '#4b5563', // text-gray-600
-  marginBottom: '16px', // mb-4
+  fontSize: '20px',
+  color: '#4b5563',
+  marginBottom: '16px',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
-  color: '#3b82f6', // text-blue-500
+  color: '#3b82f6',
   textDecoration: 'underline',
   '&:hover': {
-    color: '#1d4ed8', // hover:text-blue-700
+    color: '#1d4ed8',
   },
 }));
 

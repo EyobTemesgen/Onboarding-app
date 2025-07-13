@@ -23,25 +23,25 @@ const StyledRadio = styled(Radio)(({ theme }) => ({
 const CardContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px', // space-y-3 = 12px
+  gap: '12px', 
 }));
 
 const CardOption = styled(Box)<{ selected?: boolean }>(({ theme, selected }) => ({
-  border: selected ? '1px solid #3b82f6' : '1px solid #e2e8f0', // border-blue-500 or border-slate-200
-  borderRadius: '8px', // rounded-lg
-  padding: '16px', // p-4
+  border: selected ? '1px solid #3b82f6' : '1px solid #e2e8f0',
+  borderRadius: '8px',
+  padding: '16px',
   cursor: 'pointer',
   transition: 'all 0.2s',
   backgroundColor: selected ? 'rgba(59, 130, 246, 0.05)' : 'transparent', // bg-blue-50/50 when selected
   '&:hover': {
-    backgroundColor: '#f8fafc', // hover:bg-slate-50
+    backgroundColor: '#f8fafc',
   },
 }));
 
 const CardContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
-  gap: '12px', // space-x-3 = 12px
+  gap: '12px',
 }));
 
 const CardLabel = styled(Box)(({ theme }) => ({
@@ -49,7 +49,7 @@ const CardLabel = styled(Box)(({ theme }) => ({
 }));
 
 const StyledRadioForCard = styled(StyledRadio)(({ theme }) => ({
-  marginTop: '4px', // mt-1
+  marginTop: '4px', 
 }));
 
 interface Option {
