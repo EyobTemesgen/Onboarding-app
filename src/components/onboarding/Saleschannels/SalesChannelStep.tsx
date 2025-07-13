@@ -5,18 +5,10 @@ import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-m
 import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useSaleschannelsStyles } from "./styled";
+import { SALES_CHANNEL_OPTIONS } from "./const";
 
 const SalesChannelStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const classes = useSaleschannelsStyles();
-
-  const options = [
-    { id: "ecommerce", label: "Shopify or other ecommerce site", description: "We'll sync your online store automatically" },
-    { id: "marketplaces", label: "Amazon, Walmart, or other marketplaces", description: "Connect and control pricing across platforms" },
-    { id: "b2b", label: "B2B (email, phone, portal orders)", description: "Streamline wholesale and direct sales" },
-    { id: "manual", label: "Manual orders (trade shows, spreadsheets)", description: "Digitize and automate your current process" },
-    { id: "retail", label: "Retail or POS", description: "Sync in-store and online inventory" },
-    { id: "not_selling", label: "Not selling yet", description: "We'll prepare you for launch day" },
-  ];
 
   const handleToggle = (optionId: string) => {
     const currentChannels = data.salesChannels;
@@ -57,7 +49,7 @@ const SalesChannelStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
       </Box>
 
       <Box className={classes.optionsContainer}>
-        {options.map((option) => (
+        {SALES_CHANNEL_OPTIONS.map((option) => (
           <Box
             key={option.id}
             className={`${classes.optionCard} ${data.salesChannels.includes(option.id) ? classes.optionCardSelected : ''}`}

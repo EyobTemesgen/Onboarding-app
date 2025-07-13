@@ -5,32 +5,10 @@ import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Home, Business as B
 import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useShippingStyles } from "./styled";
+import { SHIPPING_LOCATION_OPTIONS } from "./const.tsx";
 
 const ShippingLocationStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const classes = useShippingStyles();
-
-  const options = [
-    { 
-      value: "home", 
-      label: <><strong>Home-based business</strong><br /><span style={{fontWeight:400}}>We'll set up a simple, efficient fulfillment process.</span></>
-    },
-    { 
-      value: "warehouse", 
-      label: <><strong>Warehouse or storage facility</strong><br /><span style={{fontWeight:400}}>Perfect for scaling operations and managing larger inventories.</span></>
-    },
-    { 
-      value: "retail", 
-      label: <><strong>Retail store with backroom</strong><br /><span style={{fontWeight:400}}>We'll optimize your existing space for both sales and fulfillment.</span></>
-    },
-    { 
-      value: "third_party", 
-      label: <><strong>Third-party fulfillment</strong><br /><span style={{fontWeight:400}}>We'll integrate with your fulfillment partners for seamless operations.</span></>
-    },
-    { 
-      value: "multiple", 
-      label: <><strong>Multiple locations</strong><br /><span style={{fontWeight:400}}>We'll coordinate inventory across all your locations efficiently.</span></>
-    }
-  ];
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
     updateData("shippingLocation", value);
@@ -68,7 +46,7 @@ const ShippingLocationStep = ({ data, updateData, onNext, onPrev }: StepProps) =
       <RadioGroup
         value={data.shippingLocation}
         onChange={handleSelect}
-        options={options}
+        options={SHIPPING_LOCATION_OPTIONS}
         variant="card"
       />
 

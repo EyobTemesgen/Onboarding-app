@@ -2,32 +2,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Monitor, Storage as HardDrive, Close as X, CalendarToday as Calendar, Mail } from "@mui/icons-material";
+import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Storage as HardDrive, Close as X, CalendarToday as Calendar, Mail } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useQuickbooksStyles } from "./styled";
+import { QUICKBOOKS_OPTIONS } from "./const.tsx";
 
 const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const [showDialog, setShowDialog] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const classes = useQuickbooksStyles();
-
-  const options = [
-    { 
-      value: "yes", 
-      label: <><strong>Yes, we use QuickBooks</strong><br /><span style={{fontWeight:400}}>Perfect! We'll connect your accounting and inventory seamlessly.</span></>
-    },
-    { 
-      value: "no", 
-      label: <><strong>No, we use different accounting</strong><br /><span style={{fontWeight:400}}>No problem. We'll configure the right financial integrations.</span></> 
-    },
-    { 
-      value: "planning", 
-      label: <><strong>We're planning to switch to QuickBooks</strong><br /><span style={{fontWeight:400}}>Great timing! We'll help you set up both systems together.</span></> 
-    }
-  ];
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
     updateData("quickBooks", value);
@@ -52,8 +37,8 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
             component="h2" 
             sx={{ 
               fontWeight: 'bold', 
-              color: '#111827', // text-gray-900
-              fontSize: '24px', // text-2xl = 24px
+              color: '#111827', 
+              fontSize: '24px', 
               lineHeight: '32px'
             }}
           >
@@ -62,7 +47,7 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
           <Typography 
             variant="body1" 
             sx={{ 
-              color: '#4b5563', // text-gray-600
+              color: '#4b5563', 
               fontSize: '16px',
               lineHeight: '24px'
             }}
@@ -74,7 +59,7 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
         <RadioGroup
           value={data.quickBooks}
           onChange={handleSelect}
-          options={options}
+          options={QUICKBOOKS_OPTIONS}
           variant="card"
         />
 

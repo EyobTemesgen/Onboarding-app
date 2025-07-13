@@ -1,14 +1,14 @@
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowForward as ArrowRight, 
-  Inventory as Package, 
-  TrendingUp, 
-  FlashOn as Zap 
+  Inventory as Package
 } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { WelcomeStepProps } from "../types";
 import { useWelcomeStyles } from "./styled";
+import { WELCOME_FEATURES } from "./const.tsx";
 
 const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
   const classes = useWelcomeStyles();
@@ -46,99 +46,41 @@ const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
         </Typography>
       </Box>
 
-      <Box className={classes.featureGrid}>
-        <Box className={classes.featureCard}>
-          <Box 
-            className={classes.featureIcon}
-            sx={{ backgroundColor: '#d1fae5' }}
-          >
-            <TrendingUp sx={{ color: '#059669' }} />
+            <Box className={classes.featureGrid}>
+        {WELCOME_FEATURES.map((feature, index) => (
+          <Box key={index} className={classes.featureCard}>
+            <Box 
+              className={classes.featureIcon}
+              sx={{ backgroundColor: feature.iconBackgroundColor }}
+            >
+              {React.cloneElement(feature.icon as React.ReactElement, { 
+                sx: { color: feature.iconColor } 
+              })}
+            </Box>
+            <Typography 
+              variant="h6" 
+              component="h3" 
+              sx={{ 
+                fontWeight: 600, 
+                color: '#0f172a',
+                fontSize: '16px', 
+                lineHeight: '24px'
+              }}
+            >
+              {feature.title}
+            </Typography>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#475569',
+                fontSize: '14px', 
+                lineHeight: '20px'
+              }}
+            >
+              {feature.description}
+            </Typography>
           </Box>
-          <Typography 
-            variant="h6" 
-            component="h3" 
-            sx={{ 
-              fontWeight: 600, 
-              color: '#0f172a',
-              fontSize: '16px', 
-              lineHeight: '24px'
-            }}
-          >
-            Multi-Channel Control
-          </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#475569',
-              fontSize: '14px', 
-              lineHeight: '20px'
-            }}
-          >
-            Sync inventory across all your sales channels automatically
-          </Typography>
-        </Box>
-        
-        <Box className={classes.featureCard}>
-          <Box 
-            className={classes.featureIcon}
-            sx={{ backgroundColor: '#e0f2fe' }}
-          >
-            <Zap sx={{ color: '#0284c7' }} />
-          </Box>
-          <Typography 
-            variant="h6" 
-            component="h3" 
-            sx={{ 
-              fontWeight: 600, 
-              color: '#0f172a', 
-              fontSize: '16px', 
-              lineHeight: '24px'
-            }}
-          >
-            Real-Time Sync
-          </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#475569', 
-              fontSize: '14px', 
-              lineHeight: '20px'
-            }}
-          >
-            Never oversell again with instant inventory updates
-          </Typography>
-        </Box>
-        
-        <Box className={classes.featureCard}>
-          <Box 
-            className={classes.featureIcon}
-            sx={{ backgroundColor: '#f3e8ff' }}
-          >
-            <Package sx={{ color: '#7c3aed' }} />
-          </Box>
-          <Typography 
-            variant="h6" 
-            component="h3" 
-            sx={{ 
-              fontWeight: 600, 
-              color: '#0f172a', 
-              fontSize: '16px', 
-              lineHeight: '24px'
-            }}
-          >
-            Workflow Automation
-          </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#475569', 
-              fontSize: '14px', 
-              lineHeight: '20px'
-            }}
-          >
-            Streamline operations from order to fulfillment
-          </Typography>
-        </Box>
+        ))}
       </Box>
 
   

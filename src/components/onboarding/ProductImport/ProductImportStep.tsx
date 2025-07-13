@@ -14,15 +14,11 @@ import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useProductImportStyles } from "./styled";
+import { SAMPLE_PRODUCTS } from "./const";
 
 const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const [importMethod, setImportMethod] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState(false);
-  const [sampleProducts] = useState([
-    { sku: "WID-001", name: "Wireless Headphones", qty: 150 },
-    { sku: "LTP-256", name: "Gaming Laptop", qty: 25 },
-    { sku: "MUG-BLU", name: "Coffee Mug - Blue", qty: 200 }
-  ]);
   const classes = useProductImportStyles();
 
   const handleMethodSelect = (method: string) => {
@@ -89,7 +85,7 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
             {importMethod === "sample" ? "Sample products loaded:" : "Preview of imported products:"}
           </Typography>
           <Box className={classes.previewList}>
-            {sampleProducts.map((product, index) => (
+            {SAMPLE_PRODUCTS.map((product, index) => (
               <Box key={index} className={classes.previewItem}>
                 <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
                   {product.sku}
@@ -169,8 +165,8 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
                 variant="h6" 
                 component="h3" 
                 sx={{ 
-                  fontWeight: 600, // font-semibold
-                  color: '#0f172a', // text-slate-900
+                  fontWeight: 600, 
+                  color: '#0f172a', 
                   fontSize: '16px',
                   lineHeight: '24px',
                   mb: 2
