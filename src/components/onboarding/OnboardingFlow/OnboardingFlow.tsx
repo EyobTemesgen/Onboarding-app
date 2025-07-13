@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { Card } from "@/components/ui/card/card";
 import { Progress } from "@/components/ui/progress";
@@ -12,9 +12,12 @@ import ShippingLocationStep from "../Shipping/ShippingLocationStep";
 import OnboardingComplete from "../Finish/OnboardingComplete";
 import { OnboardingData } from "../types";
 import { useOnboardingFlowStyles } from "./styled";
+import { useSearchParams } from "react-router-dom";
 
 const OnboardingFlow = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const stepParam = Number(searchParams.get("step")) || 0;
+  const [currentStep, setCurrentStep] = useState(stepParam);
   const [onboardingData, setOnboardingData] = useState<OnboardingData>({
     salesChannels: [],
     inventoryTracking: "",
@@ -23,6 +26,10 @@ const OnboardingFlow = () => {
     productImport: "",
   });
   const classes = useOnboardingFlowStyles();
+
+  useEffect(() => {
+    setSearchParams({ step: String(currentStep) });
+  }, [currentStep, setSearchParams]);
 
   const totalSteps = 6;
   const progress = (currentStep / totalSteps) * 100;
@@ -39,7 +46,7 @@ const OnboardingFlow = () => {
     }
   };
 
-  const updateData = (key: keyof OnboardingData, value: any) => {
+  const updateData = (key: keyof OnboardingData, value: unknown) => {
     setOnboardingData(prev => ({
       ...prev,
       [key]: value
