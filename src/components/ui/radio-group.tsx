@@ -1,42 +1,118 @@
-import * as React from "react"
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import { Circle } from "lucide-react"
+import * as React from "react";
+import {
+  RadioGroup as MuiRadioGroup,
+  RadioGroupProps as MuiRadioGroupProps,
+  Radio,
+  FormControlLabel,
+  FormControlLabelProps,
+  Box
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-import { cn } from "@/lib/utils"
+const StyledRadioGroup = styled(MuiRadioGroup)<MuiRadioGroupProps>(({ theme }) => ({
+  display: 'grid',
+  gap: theme.spacing(1),
+}));
 
-const RadioGroup = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
-  return (
-    <RadioGroupPrimitive.Root
-      className={cn("grid gap-2", className)}
-      {...props}
-      ref={ref}
-    />
-  )
-})
-RadioGroup.displayName = RadioGroupPrimitive.Root.displayName
+const StyledRadio = styled(Radio)(({ theme }) => ({
+  '&.Mui-checked': {
+    color: theme.palette.primary.main,
+  },
+}));
 
-const RadioGroupItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
->(({ className, ...props }, ref) => {
-  return (
-    <RadioGroupPrimitive.Item
-      ref={ref}
-      className={cn(
-        "aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      {...props}
-    >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="h-2.5 w-2.5 fill-current text-current" />
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
-  )
-})
-RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName
+const CardContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px', // space-y-3 = 12px
+}));
 
-export { RadioGroup, RadioGroupItem }
+const CardOption = styled(Box)<{ selected?: boolean }>(({ theme, selected }) => ({
+  border: selected ? '1px solid #3b82f6' : '1px solid #e2e8f0', // border-blue-500 or border-slate-200
+  borderRadius: '8px', // rounded-lg
+  padding: '16px', // p-4
+  cursor: 'pointer',
+  transition: 'all 0.2s',
+  backgroundColor: selected ? 'rgba(59, 130, 246, 0.05)' : 'transparent', // bg-blue-50/50 when selected
+  '&:hover': {
+    backgroundColor: '#f8fafc', // hover:bg-slate-50
+  },
+}));
+
+const CardContent = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '12px', // space-x-3 = 12px
+}));
+
+const CardLabel = styled(Box)(({ theme }) => ({
+  flex: 1,
+}));
+
+const StyledRadioForCard = styled(StyledRadio)(({ theme }) => ({
+  marginTop: '4px', // mt-1
+}));
+
+interface Option {
+  value: string;
+  label: React.ReactNode;
+  disabled?: boolean;
+  className?: string;
+}
+
+interface RadioGroupProps extends MuiRadioGroupProps {
+  options?: Option[];
+  variant?: 'default' | 'card';
+}
+
+const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+  ({ className, options, children, variant = 'default', ...props }, ref) => {
+    if (variant === 'card' && options) {
+      return (
+        <CardContainer>
+          {options.map((option) => (
+            <CardOption
+              key={option.value}
+              selected={props.value === option.value}
+              onClick={() => {
+                if (props.onChange) {
+                  props.onChange({ target: { value: option.value } } as any, option.value);
+                }
+              }}
+            >
+              <CardContent>
+                <StyledRadioForCard
+                  checked={props.value === option.value}
+                  onChange={() => {}}
+                />
+                <CardLabel>
+                  {option.label}
+                </CardLabel>
+              </CardContent>
+            </CardOption>
+          ))}
+        </CardContainer>
+      );
+    }
+
+    return (
+      <StyledRadioGroup ref={ref} className={className} {...props}>
+        {options
+          ? options.map((option) => (
+              <FormControlLabel
+                key={option.value}
+                value={option.value}
+                control={<StyledRadio />}
+                label={option.label}
+                disabled={option.disabled}
+                className={option.className}
+              />
+            ))
+          : children}
+      </StyledRadioGroup>
+    );
+  }
+);
+
+RadioGroup.displayName = "RadioGroup";
+
+export { RadioGroup };

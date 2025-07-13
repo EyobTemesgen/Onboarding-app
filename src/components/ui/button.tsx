@@ -1,56 +1,99 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Button as MuiButton, ButtonProps as MuiButtonProps } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-import { cn } from "@/lib/utils"
-
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
+// Styled MUI Button with custom variants
+const StyledButton = styled(MuiButton)<{ variant?: string; size?: string }>(({ theme, variant, size }) => ({
+  textTransform: 'none',
+  fontWeight: 500,
+  gap: theme.spacing(1),
+  '& .MuiSvgIcon-root': {
+    pointerEvents: 'none',
+    fontSize: '1rem',
+    flexShrink: 0,
+  },
+  ...(variant === 'outline' && {
+    borderColor: theme.palette.divider,
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
+  }),
+  ...(variant === 'secondary' && {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
     },
-  }
-)
+  }),
+  ...(variant === 'ghost' && {
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  }),
+  ...(variant === 'link' && {
+    backgroundColor: 'transparent',
+    color: theme.palette.primary.main,
+    textDecoration: 'underline',
+    textUnderlineOffset: '4px',
+    '&:hover': {
+      backgroundColor: 'transparent',
+      textDecoration: 'underline',
+    },
+  }),
+  ...(size === 'sm' && {
+    height: '36px',
+    padding: theme.spacing(0, 1.5),
+    fontSize: '0.875rem',
+  }),
+  ...(size === 'lg' && {
+    height: '44px',
+    padding: theme.spacing(0, 4),
+    fontSize: '1rem',
+  }),
+  ...(size === 'icon' && {
+    minWidth: '40px',
+    width: '40px',
+    height: '40px',
+    padding: 0,
+  }),
+}));
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+export interface ButtonProps extends Omit<MuiButtonProps, 'variant' | 'size'> {
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({ className, variant = 'default', size = 'default', asChild = false, ...props }, ref) => {
+    // Map our variants to MUI variants
+    const muiVariant = variant === 'default' ? 'contained' : 
+                      variant === 'outline' ? 'outlined' : 
+                      variant === 'ghost' || variant === 'link' ? 'text' : 'contained';
+    
+    // Map our sizes to MUI sizes
+    const muiSize = size === 'default' ? 'medium' : 
+                   size === 'sm' ? 'small' : 
+                   size === 'lg' ? 'large' : 'medium';
+
+    // Handle destructive variant
+    const color = variant === 'destructive' ? 'error' : 'primary';
+
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+      <StyledButton
         ref={ref}
+        variant={muiVariant}
+        size={muiSize}
+        color={color}
+        className={className}
         {...props}
       />
-    )
+    );
   }
-)
-Button.displayName = "Button"
+);
 
-export { Button, buttonVariants }
+Button.displayName = "Button";
+
+export { Button };

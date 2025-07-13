@@ -1,33 +1,32 @@
-# Welcome to new project
+# dr-quickbooks-registration
 
 ## Project info
+
+**Description:**
+A modern onboarding and registration app for QuickBooks integration, built with React, TypeScript, Vite, and Material-UI (MUI). This project provides a seamless onboarding flow for users to connect sales channels, import products, set up inventory, and more—all with a clean, responsive MUI-powered UI.
 
 **URL**: https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
+You can edit this project in several ways:
 
 **Use Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+Visit the [Lovable Project](https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00) and start prompting. Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requirements: Node.js & npm ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd dr-quickbooks-registration
 
 # Step 3: Install the necessary dependencies.
 npm i
@@ -57,8 +56,7 @@ This project is built with:
 - Vite
 - TypeScript
 - React
-- shadcn-ui
-- Tailwind CSS
+- Material-UI (MUI)
 
 ## How can I deploy this project?
 
