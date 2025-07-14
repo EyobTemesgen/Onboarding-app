@@ -69,3 +69,47 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+# Environment Configuration
+
+This project uses Vite's environment variable system to support multiple environments.
+
+## Environment Files
+
+- `.env` — Base variables (shared across all environments)
+- `.env.local` — Local developer overrides (not committed)
+- `.env.dev` — Development environment
+- `.env.qa` — QA environment
+- `.env.stage` — Staging environment
+- `.env.prod` — Production environment
+
+**Only variables prefixed with `VITE_` are exposed to the client.**
+
+## Example Variables
+
+```
+VITE_API_URL=https://api.example.com
+VITE_ENV_NAME=prod
+```
+
+## Usage
+
+To run or build the app for a specific environment, use the `--mode` flag:
+
+```
+# Development
+vite --mode dev
+
+# QA
+yarn dev --mode qa
+
+# Staging
+npm run dev -- --mode stage
+
+# Production build
+vite build --mode prod
+```
+
+Vite will load variables from `.env`, then `.env.{mode}` (e.g., `.env.dev`), then `.env.local` (if present).
+
+See [Vite Environment Variables](https://vitejs.dev/guide/env-and-mode.html) for more details.
