@@ -87,7 +87,6 @@ const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', mt: '-8px' }}> 
         <Button 
           onClick={onNext} 
-          size="lg"
           className={classes.styledButton}
         >
           Let's Go

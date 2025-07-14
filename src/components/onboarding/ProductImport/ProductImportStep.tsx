@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -10,11 +11,43 @@ import {
   Help as HelpCircle, 
   Inventory as Package 
 } from "@mui/icons-material";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Tooltip as MuiTooltip, TooltipProps as MuiTooltipProps } from "@mui/material";
 import { StepProps } from "../types";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { styled } from "@mui/material/styles";
 import { useProductImportStyles } from "./styled";
 import { SAMPLE_PRODUCTS } from "./const";
+
+const StyledTooltip = styled(MuiTooltip)<MuiTooltipProps>(({ theme }) => ({
+  '& .MuiTooltip-tooltip': {
+    backgroundColor: theme.palette.grey[900],
+    color: theme.palette.grey[100],
+    fontSize: '0.875rem',
+    padding: theme.spacing(1, 1.5),
+    borderRadius: theme.spacing(0.5),
+    border: `1px solid ${theme.palette.divider}`,
+    boxShadow: theme.shadows[4],
+  },
+}));
+
+const Tooltip = StyledTooltip;
+
+const TooltipTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => (
+    <div ref={ref} {...props}>
+      {children}
+    </div>
+  )
+);
+
+const TooltipContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => (
+    <div ref={ref} {...props}>
+      {children}
+    </div>
+  )
+);
+
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => <>{children}</>;
 
 const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const [importMethod, setImportMethod] = useState<string>("");
