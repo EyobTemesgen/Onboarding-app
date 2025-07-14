@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { Card } from "@/components/ui/card/card";
 import { Progress } from "@/components/ui/progress";
-import WelcomeStep from "../Start/WelcomeStep";
 import ProductImportStep from "../ProductImport/ProductImportStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
 import QuickBooksStep from "../Quickbooks/QuickBooksStep";
@@ -13,6 +12,7 @@ import OnboardingComplete from "../Finish/OnboardingComplete";
 import { OnboardingData } from "../types";
 import { useOnboardingFlowStyles } from "./styled";
 import { useSearchParams } from "react-router-dom";
+import WelcomeStep from "../Welcome/WelcomeStep";
 
 const OnboardingFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
