@@ -15,21 +15,21 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
     maxWidth: '672px', 
   },
   progressContainer: {
-    marginBottom: '32px', 
+    marginBottom: '20px', 
   },
   progressHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '8px', 
+    marginBottom: '6px', 
   },
   stepText: {
-    fontSize: '14px', 
+    fontSize: '12px', 
     fontWeight: 500, 
     color: '#334155', 
   },
   progressText: {
-    fontSize: '14px', 
+    fontSize: '10px', 
     color: '#475569', 
   },
   styledCard: {
