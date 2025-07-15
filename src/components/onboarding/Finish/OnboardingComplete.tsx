@@ -1,6 +1,6 @@
 import { CheckCircle, ArrowRight, CenterFocusStrong, FlashOn, Star } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import { Card } from "@/components/ui/card/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useFinishStyles } from "./styled";
 
@@ -36,7 +36,16 @@ const OnboardingComplete = () => {
         <Typography className={classes.subtitle}>Your Drive control center is ready. You can now manage inventory, orders, and channels from one place.</Typography>
       </Box>
 
-      <Card className={classes.styledCard}>
+      <Card
+        className={classes.styledCard}
+        sx={{
+          borderRadius: 1,
+          border: `1px solid ${theme => theme.palette.divider}`,
+          backgroundColor: theme => theme.palette.background.paper,
+          color: theme => theme.palette.text.primary,
+          boxShadow: theme => theme.shadows[1],
+        }}
+      >
         <Typography className={classes.cardTitle}>Your personalized control center is ready</Typography>
         <Box className={classes.featureGrid}>
           {features.map((f, i) => (

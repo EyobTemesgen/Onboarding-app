@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { Card } from "@/components/ui/card/card";
+import { Card } from "@/components/ui/card";
 import { LinearProgress } from "@mui/material";
 import ProductImportStep from "../ProductImport/ProductImportStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
@@ -135,7 +135,16 @@ const OnboardingFlow = () => {
           </Box>
         )}
         
-        <Card className={classes.styledCard}>
+        <Card
+          className={classes.styledCard}
+          sx={{
+            borderRadius: 1,
+            border: `1px solid ${theme => theme.palette.divider}`,
+            backgroundColor: theme => theme.palette.background.paper,
+            color: theme => theme.palette.text.primary,
+            boxShadow: theme => theme.shadows[1],
+          }}
+        >
           {renderStep()}
         </Card>
       </Box>
