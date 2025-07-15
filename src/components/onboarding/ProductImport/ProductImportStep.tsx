@@ -13,41 +13,42 @@ import {
 } from "@mui/icons-material";
 import { Typography, Box, Tooltip as MuiTooltip, TooltipProps as MuiTooltipProps } from "@mui/material";
 import { StepProps } from "../types";
-import { styled } from "@mui/material/styles";
 import { useProductImportStyles } from "./styled";
-import { SAMPLE_PRODUCTS } from "./const";
-
-const StyledTooltip = styled(MuiTooltip)<MuiTooltipProps>(({ theme }) => ({
-  '& .MuiTooltip-tooltip': {
-    backgroundColor: theme.palette.grey[900],
-    color: theme.palette.grey[100],
-    fontSize: '0.875rem',
-    padding: theme.spacing(1, 1.5),
-    borderRadius: theme.spacing(0.5),
-    border: `1px solid ${theme.palette.divider}`,
-    boxShadow: theme.shadows[4],
-  },
-}));
+import { SAMPLE_PRODUCTS, IMPORT_METHODS } from "./const";
+import { StyledTooltip } from "./styled";
 
 const Tooltip = StyledTooltip;
 
-const TooltipTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ children, ...props }, ref) => (
-    <div ref={ref} {...props}>
-      {children}
-    </div>
-  )
-);
+const iconMap = {
+  upload: (color: string) => <Upload sx={{ color }} />,
+  zap: (color: string) => <Zap sx={{ color }} />,
+  package: (color: string) => <Package sx={{ color }} />,
+  filetext: (color: string) => <FileText sx={{ color }} />,
+};
 
-const TooltipContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ children, ...props }, ref) => (
-    <div ref={ref} {...props}>
-      {children}
-    </div>
-  )
-);
+const infoIconMap = {
+  filetext: <FileText sx={{ width: 12, height: 12 }} />,
+  zap: <Zap sx={{ width: 12, height: 12 }} />,
+  package: <Package sx={{ width: 12, height: 12 }} />,
+};
 
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+const tooltipMap = {
+  csvTooltip: (
+    <Typography sx={{ fontSize: "12px" }}>
+      Required columns: SKU, Product Name, Quantity<br />Optional: Price, Description, Category
+    </Typography>
+  ),
+  quickbooksTooltip: (
+    <Typography sx={{ fontSize: "12px" }}>
+      Requires QuickBooks Online with inventory tracking enabled
+    </Typography>
+  ),
+  sampleTooltip: (
+    <Typography sx={{ fontSize: "12px" }}>
+      Includes sample SKUs, names, and quantities<br />You can replace with real data anytime
+    </Typography>
+  ),
+};
 
 const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
   const [importMethod, setImportMethod] = useState<string>("");
@@ -176,197 +177,59 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
       </Box>
 
       <Box className={classes.methodGrid}>
-        <Box 
-          className={classes.methodCard}
-          onClick={() => handleMethodSelect("csv")}
-          sx={{
-            '&:hover': {
-              borderColor: '#3b82f6',
-              backgroundColor: '#3b82f620',
-            }
-          }}
-        >
-          <Box className={classes.methodContent}>
-            <Box 
-              className={classes.methodIcon}
-              sx={{ backgroundColor: '#dbeafe' }}
-            >
-              <Upload sx={{ color: '#2563eb' }} />
-            </Box>
-            <div>
-              <Typography 
-                variant="h6" 
-                component="h3" 
-                sx={{ 
-                  fontWeight: 600, 
-                  color: '#0f172a', 
-                  fontSize: '16px',
-                  lineHeight: '24px',
-                  mb: 2
-                }}
-              >
-                Upload CSV File
-              </Typography>
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  color: '#475569', 
-                  fontSize: '14px', 
-                  lineHeight: '20px'
-                }}
-              >
-                Import your existing product list from a spreadsheet or export file.
-              </Typography>
-            </div>
-            <Box className={classes.methodInfo}>
-              <FileText sx={{ width: 12, height: 12 }} />
-              <Typography sx={{ fontSize: '12px' }}>SKU, Name, Quantity format</Typography>
-              <TooltipProvider>
-  <Tooltip title={""}>
-    <>
-      <TooltipTrigger>
-        <HelpCircle sx={{ width: 12, height: 12 }} />
-      </TooltipTrigger>
-      <TooltipContent>
-        <Typography sx={{ fontSize: '12px' }}>
-          Required columns: SKU, Product Name, Quantity<br />Optional: Price, Description, Category
-        </Typography>
-      </TooltipContent>
-    </>
-  </Tooltip>
-</TooltipProvider>
-
+        {IMPORT_METHODS.map(method => (
+          <Box
+            key={method.key}
+            className={classes.methodCard}
+            onClick={() => handleMethodSelect(method.key)}
+            sx={{
+              '&:hover': {
+                borderColor: method.borderColor,
+                backgroundColor: method.bgColor,
+              }
+            }}
+          >
+            <Box className={classes.methodContent}>
+              <Box className={classes.methodIcon} sx={{ backgroundColor: method.iconBg }}>
+                {iconMap[method.icon]?.(method.iconColor)}
+              </Box>
+              <div>
+                <Typography 
+                  variant="h6" 
+                  component="h3" 
+                  sx={{ 
+                    fontWeight: 600, 
+                    color: '#0f172a', 
+                    fontSize: '16px',
+                    lineHeight: '24px',
+                    mb: 2
+                  }}
+                >
+                  {method.title}
+                </Typography>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    color: '#475569', 
+                    fontSize: '14px', 
+                    lineHeight: '20px'
+                  }}
+                >
+                  {method.description}
+                </Typography>
+              </div>
+              <Box className={classes.methodInfo}>
+                {infoIconMap[method.infoIcon]}
+                <Typography sx={{ fontSize: '12px' }}>{method.infoText}</Typography>
+                <Tooltip
+                  title={tooltipMap[method.tooltipKey]}
+                >
+                  <HelpCircle sx={{ width: 12, height: 12, ml: 0.5 }} />
+                </Tooltip>
+              </Box>
             </Box>
           </Box>
-        </Box>
-
-        <Box 
-          className={classes.methodCard}
-          onClick={() => handleMethodSelect("quickbooks")}
-          sx={{
-            '&:hover': {
-              borderColor: '#16a34a',
-              backgroundColor: '#16a34a20',
-            }
-          }}
-        >
-          <Box className={classes.methodContent}>
-            <Box 
-              className={classes.methodIcon}
-              sx={{ backgroundColor: '#dcfce7' }}
-            >
-              <Zap sx={{ color: '#16a34a' }} />
-            </Box>
-            <div>
-              <Typography 
-                variant="h6" 
-                component="h3" 
-                sx={{ 
-                  fontWeight: 600, 
-                  color: '#0f172a', 
-                  fontSize: '16px',
-                  lineHeight: '24px',
-                  mb: 2
-                }}
-              >
-                Connect to QuickBooks
-              </Typography>
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  color: '#475569', 
-                  fontSize: '14px', 
-                  lineHeight: '20px'
-                }}
-              >
-                Automatically sync your existing inventory data and keep everything up to date.
-              </Typography>
-            </div>
-            <Box className={classes.methodInfo}>
-              <Zap sx={{ width: 12, height: 12 }} />
-              <Typography sx={{ fontSize: '12px' }}>Real-time sync enabled</Typography>
-              <TooltipProvider>
-  <Tooltip title={""}>
-    <>
-      <TooltipTrigger>
-        <HelpCircle sx={{ width: 12, height: 12 }} />
-      </TooltipTrigger>
-      <TooltipContent>
-        <Typography sx={{ fontSize: '12px' }}>
-          Requires QuickBooks Online with inventory tracking enabled
-        </Typography>
-      </TooltipContent>
-    </>
-  </Tooltip>
-</TooltipProvider>
-
-            </Box>
-          </Box>
-        </Box>
-
-        <Box 
-          className={classes.methodCard}
-          onClick={() => handleMethodSelect("sample")}
-          sx={{
-            '&:hover': {
-              borderColor: '#9333ea',
-              backgroundColor: '#9333ea20',
-            }
-          }}
-        >
-          <Box className={classes.methodContent}>
-            <Box 
-              className={classes.methodIcon}
-              sx={{ backgroundColor: '#f3e8ff' }}
-            >
-              <Package sx={{ color: '#9333ea' }} />
-            </Box>
-            <div>
-              <Typography 
-                variant="h6" 
-                component="h3" 
-                sx={{ 
-                  fontWeight: 600, 
-                  color: '#0f172a', 
-                  fontSize: '16px',
-                  lineHeight: '24px',
-                  mb: 2
-                }}
-              >
-                Start with Sample Data
-              </Typography>
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  color: '#475569', 
-                  fontSize: '14px', 
-                  lineHeight: '20px'
-                }}
-              >
-                Explore the system with pre-loaded sample products. Perfect for getting started quickly.
-              </Typography>
-            </div>
-            <Box className={classes.methodInfo}>
-              <Package sx={{ width: 12, height: 12 }} />
-              <Typography sx={{ fontSize: '12px' }}>Ready to explore immediately</Typography>
-              <TooltipProvider>
-  <Tooltip title={""}>
-    <>
-      <TooltipTrigger>
-        <HelpCircle sx={{ width: 12, height: 12 }} />
-      </TooltipTrigger>
-      <TooltipContent>
-        <Typography sx={{ fontSize: '12px' }}>
-          Includes sample SKUs, names, and quantities<br />You can replace with real data anytime
-        </Typography>
-      </TooltipContent>
-    </>
-  </Tooltip>
-</TooltipProvider>
-
-            </Box>
-          </Box>
-        </Box>
+        ))}
       </Box>
 
       <Box className={classes.buttonContainer}>

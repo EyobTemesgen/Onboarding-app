@@ -1,5 +1,19 @@
+import { styled } from '@mui/material/styles';
+import MuiTooltip, { TooltipProps as MuiTooltipProps } from '@mui/material/Tooltip';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
+
+export const StyledTooltip = styled(MuiTooltip)<MuiTooltipProps>(({ theme }) => ({
+  '& .MuiTooltip-tooltip': {
+    backgroundColor: theme.palette.grey[900],
+    color: theme.palette.grey[100],
+    fontSize: '0.875rem',
+    padding: theme.spacing(1, 1.5),
+    borderRadius: theme.spacing(0.5),
+    border: `1px solid ${theme.palette.divider}`,
+    boxShadow: theme.shadows[4],
+  },
+}));
 
 export const useProductImportStyles = makeStyles<Theme>(() => ({
   container: {
