@@ -1,25 +1,31 @@
 import * as React from "react";
 import { ShippingLocationOption } from "./types";
+import { Home, Business as Building2, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
 
 export const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
   { 
     value: "home", 
-    label: <><strong>Home-based business</strong><br /><span style={{fontWeight:400}}>We'll set up a simple, efficient fulfillment process.</span></>
+    label: "Home-based business\nWe'll set up a simple, efficient fulfillment process.",
+    icon: <Home />
   },
   { 
     value: "warehouse", 
-    label: <><strong>Warehouse or storage facility</strong><br /><span style={{fontWeight:400}}>Perfect for scaling operations and managing larger inventories.</span></>
+    label: "Warehouse or storage facility\nPerfect for scaling operations and managing larger inventories.",
+    icon: <Building2 />
   },
   { 
     value: "retail", 
-    label: <><strong>Retail store with backroom</strong><br /><span style={{fontWeight:400}}>We'll optimize your existing space for both sales and fulfillment.</span></>
+    label: "Retail store with backroom\nWe'll optimize your existing space for both sales and fulfillment.",
+    icon: <Truck />
   },
   { 
     value: "third_party", 
-    label: <><strong>Third-party fulfillment</strong><br /><span style={{fontWeight:400}}>We'll integrate with your fulfillment partners for seamless operations.</span></>
+    label: "Third-party fulfillment\nWe'll integrate with your fulfillment partners for seamless operations.",
+    icon: <Clock />
   },
   { 
     value: "multiple", 
-    label: <><strong>Multiple locations</strong><br /><span style={{fontWeight:400}}>We'll coordinate inventory across all your locations efficiently.</span></>
+    label: "Multiple locations\nWe'll coordinate inventory across all your locations efficiently.",
+    icon: <Truck />
   }
-]; 
+];

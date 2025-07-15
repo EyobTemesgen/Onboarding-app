@@ -1,9 +1,10 @@
 import * as React from "react";
-import { RadioGroup as MuiRadioGroup, FormControlLabel, Radio, Box } from "@mui/material";
+import { RadioGroup as MuiRadioGroup, FormControlLabel, Radio, Box, Typography } from "@mui/material";
 
 interface RadioOption {
   value: string;
   label: string;
+  icon?: React.ReactNode;
   disabled?: boolean;
   className?: string;
 }
@@ -44,21 +45,41 @@ const RadioGroup = ({
                 backgroundColor: '#f8fafc',
               },
               display: 'flex',
-              alignItems: 'flex-start',
-              gap: 1,
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px',
+              minHeight: '64px',
+              width: '100%'
             }}
             onClick={() => onChange({ target: { value: option.value } } as any, option.value)}
           >
-            <Radio
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flex: 1, minWidth: 0 }}>
+              {option.icon && (
+                <Box sx={{ color: '#64748b', fontSize: '1.25rem' }}>
+                  {option.icon}
+                </Box>
+              )}
+              <Typography 
+                sx={{
+                  color: '#475569',
+                  fontSize: '16px',
+                  lineHeight: '24px'
+                }}
+              >
+                {option.label}
+              </Typography>
+            </Box>
+            <Radio 
               checked={value === option.value}
-              sx={{
-                '&.Mui-checked': {
-                  color: '#3b82f6',
-                },
-                mt: 0.5,
+              onChange={(event) => onChange(event, option.value)}
+              value={option.value}
+              sx={{ 
+                color: '#64748b', 
+                '&.Mui-checked': { color: '#3b82f6' },
+                ml: 2,
+                fontSize: '1.25rem'
               }}
             />
-            <Box sx={{ flex: 1 }}>{option.label}</Box>
           </Box>
         ))}
       </Box>

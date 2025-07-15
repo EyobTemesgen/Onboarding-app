@@ -1,25 +1,31 @@
-import * as React from "react";
+
 import { InventoryTrackingOption } from "./types";
+import { Inventory, Business as QuickBooksIcon, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
 
 export const INVENTORY_TRACKING_OPTIONS: InventoryTrackingOption[] = [
   { 
     value: "none", 
-    label: <><strong>We don't track inventory yet</strong><br /><span style={{fontWeight:400}}>Perfect. We'll build your system from the ground up.</span></> 
+    label: "We don't track inventory yet\nPerfect. We'll build your system from the ground up.",
+    icon: <Inventory />
   },
   { 
     value: "spreadsheets", 
-    label: <><strong>Spreadsheets</strong><br /><span style={{fontWeight:400}}>Time to eliminate manual errors and save hours each week.</span></> 
-  },
+    label: "Spreadsheets\nTime to eliminate manual errors and save hours each week.",
+    icon: <Truck />
+  },  
   { 
     value: "quickbooks", 
-    label: <><strong>QuickBooks</strong><br /><span style={{fontWeight:400}}>Excellent. We'll sync seamlessly with your existing setup.</span></> 
+    label: "QuickBooks\nExcellent. We'll sync seamlessly with your existing setup.",
+    icon: <QuickBooksIcon />
   },
   { 
     value: "other_tool", 
-    label: <><strong>Another inventory tool</strong><br /><span style={{fontWeight:400}}>We'll help you migrate and upgrade your workflow.</span></> 
+    label: "Another inventory tool\nWe'll help you migrate and upgrade your workflow.",
+    icon: <Truck />
   },
   { 
     value: "fishbowl", 
-    label: <><strong>Fishbowl Classic or other ERP</strong><br /><span style={{fontWeight:400}}>Ready to modernize? We specialize in smooth transitions.</span></> 
+    label: "Fishbowl Classic or other ERP\nReady to modernize? We specialize in smooth transitions.",
+    icon: <Clock />
   }
-]; 
+];
