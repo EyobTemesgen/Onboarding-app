@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { Card } from "@/components/ui/card/card";
-import { Progress } from "@/components/ui/progress";
+import { LinearProgress } from "@mui/material";
 import ProductImportStep from "../ProductImport/ProductImportStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
 import QuickBooksStep from "../Quickbooks/QuickBooksStep";
@@ -120,7 +120,18 @@ const OnboardingFlow = () => {
               </Typography>
               <Typography className={classes.progressText}>{Math.round(progress)}% complete</Typography>
             </Box>
-            <Progress value={progress} sx={{ height: '8px' }} />
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{
+                height: '8px',
+                borderRadius: 1,
+                backgroundColor: (theme) => theme.palette.action.hover,
+                '& .MuiLinearProgress-bar': {
+                  borderRadius: 1,
+                },
+              }}
+            />
           </Box>
         )}
         
