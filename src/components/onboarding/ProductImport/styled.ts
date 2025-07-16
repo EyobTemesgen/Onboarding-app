@@ -80,7 +80,6 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     transition: 'all 0.2s',
     '&:hover': {
       borderColor: '#2563eb', 
-      backgroundColor: '#2563eb20',
     },
   },
   methodIcon: {

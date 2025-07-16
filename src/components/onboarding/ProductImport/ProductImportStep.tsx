@@ -185,7 +185,7 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
             sx={{
               '&:hover': {
                 borderColor: method.borderColor,
-                backgroundColor: method.bgColor,
+                // backgroundColor removed to only highlight border
               }
             }}
           >

@@ -36,6 +36,7 @@ const RadioGroup = ({
           <Box
             key={option.value}
             sx={{
+              position: 'relative', // Added for correct absolute positioning of badge
               border: value === option.value ? '1px solid #3b82f6' : '1px solid #e2e8f0',
               borderRadius: 1,
               p: 2,
