@@ -51,14 +51,15 @@ const InventoryTrackingStep = ({ data, updateData, onNext, onPrev }: StepProps) 
       />
 
       <Box className={classes.buttonContainer}>
-        <Button variant="outline" onClick={onPrev} className={classes.backButton}>
+        <Button variant="secondary" size="medium" onClick={onPrev}>
           <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
           Back
         </Button>
         <Button 
+          variant="primary"
+          size="medium"
           onClick={onNext} 
           disabled={!canProceed}
-          className={classes.nextButton}
         >
           Set Up My System
           <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />

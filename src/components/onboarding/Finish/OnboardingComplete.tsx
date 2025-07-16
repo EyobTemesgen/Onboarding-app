@@ -79,7 +79,7 @@ const OnboardingComplete = () => {
       </Box>
 
       <Box className={classes.buttonSection}>
-        <Button className={classes.finishButton}>
+        <Button>
           Go to Dashboard
           <ArrowRight sx={{ ml: 2, width: 20, height: 20 }} />
         </Button>

@@ -130,14 +130,15 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
         </Box>
 
         <Box className={classes.buttonContainer} sx={{ mt: 4 }}>
-          <Button variant="outlined" onClick={onPrev} className={classes.backButton}>
+          <Button variant="secondary" size="medium" onClick={onPrev}>
             <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
             Back
           </Button>
           <Button 
+            variant="primary"
+            size="medium"
             onClick={onNext} 
             disabled={!canProceed}
-            className={classes.nextButton}
           >
             Complete Setup
             <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />

@@ -136,11 +136,11 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
         </Box>
 
         <Box className={classes.buttonContainer}>
-          <Button variant="outline" onClick={onPrev} className={classes.backButton}>
+          <Button variant="secondary" size="medium" onClick={onPrev}>
             <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
             Back
           </Button>
-          <Button onClick={onNext} className={classes.nextButton}>
+          <Button variant="primary" size="medium" onClick={onNext}>
             Continue Setup
             <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
           </Button>
@@ -233,7 +233,7 @@ const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
       </Box>
 
       <Box className={classes.buttonContainer}>
-        <Button variant="outline" onClick={onPrev} className={classes.backButton}>
+        <Button variant="secondary" size="medium" onClick={onPrev}>
           <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
           Back
         </Button>
