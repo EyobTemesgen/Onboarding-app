@@ -89,6 +89,7 @@ const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
           variant="primary"
           size="large"
           onClick={onNext}
+          twClassName="w-full"
         >
           Let's Go
           <ArrowRight sx={{ ml: 2, width: 20, height: 20 }} />

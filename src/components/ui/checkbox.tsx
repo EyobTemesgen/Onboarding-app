@@ -1,8 +1,12 @@
-import * as React from "react";
-import { Checkbox as MuiCheckbox, CheckboxProps } from "@mui/material";
+import { FinCheckbox } from "@f3358/fb-design-library/checkbox";
+import React from 'react';
+import { createComponent } from '@lit/react';
 
-const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
-  (props, ref) => <MuiCheckbox ref={ref} {...props} />
-);
-
-export { Checkbox };
+export const Checkbox = createComponent({
+  tagName: 'fin-checkbox',
+  elementClass: FinCheckbox,
+  react: React,
+  events: {
+    onChange: 'fin-change',
+  },
+});
