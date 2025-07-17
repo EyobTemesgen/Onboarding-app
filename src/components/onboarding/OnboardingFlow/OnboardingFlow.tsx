@@ -124,7 +124,7 @@ const OnboardingFlow = () => {
               variant="determinate"
               value={progress}
               sx={{
-                height: '8px',
+                height: '6px',
                 borderRadius: 1,
                 backgroundColor: (theme) => theme.palette.action.hover,
                 '& .MuiLinearProgress-bar': {
