@@ -6,12 +6,13 @@ import {
   Inventory as Package
 } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import { WelcomeStepProps } from "../types";
 import { useWelcomeStyles } from "./styled";
 import { WELCOME_FEATURES } from "./const.tsx";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
 const WelcomeStep = () => {
   const classes = useWelcomeStyles();
+  const { setCurrentStep } = useOnboarding();
 
   return (
     <Box className={classes.container}>
@@ -88,7 +89,7 @@ const WelcomeStep = () => {
         <Button 
           variant="primary"
           size="large"
-          onClick={() => {}}
+          onClick={() => setCurrentStep(1)}
           twClassName="w-full"
         >
           Let's Go
