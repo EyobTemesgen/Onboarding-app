@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
-import { StepProps } from "../types";
 import { useInventoryTrackingStyles } from "./styled";
 import { INVENTORY_TRACKING_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";

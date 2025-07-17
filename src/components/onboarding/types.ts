@@ -7,18 +7,6 @@ export interface OnboardingData {
   productImport: string;
 }
 
-// Step Component Props Types
-export interface WelcomeStepProps {
-  onNext: () => void;
-}
-
-export interface StepProps {
-  data: OnboardingData;
-  updateData: (key: keyof OnboardingData, value: any) => void;
-  onNext: () => void;
-  onPrev: () => void;
-}
-
 export interface OnboardingCompleteProps {
   data: OnboardingData;
 }

@@ -10,7 +10,7 @@ import { WelcomeStepProps } from "../types";
 import { useWelcomeStyles } from "./styled";
 import { WELCOME_FEATURES } from "./const.tsx";
 
-const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
+const WelcomeStep = () => {
   const classes = useWelcomeStyles();
 
   return (
@@ -88,7 +88,7 @@ const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
         <Button 
           variant="primary"
           size="large"
-          onClick={onNext}
+          onClick={() => {}}
           twClassName="w-full"
         >
           Let's Go
