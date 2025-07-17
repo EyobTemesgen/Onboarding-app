@@ -33,7 +33,7 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
     color: '#475569', 
   },
   styledCard: {
-    padding: '32px', 
+    padding: '20px', 
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', 
     border: '0',
     backgroundColor: 'rgba(255, 255, 255, 0.9)', 
