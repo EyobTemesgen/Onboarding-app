@@ -76,7 +76,7 @@ const RadioGroup = ({
               value={option.value}
               sx={{ 
                 color: '#64748b', 
-                '&.Mui-checked': { color: '#3b82f6' },
+                '&.Mui-checked': { color: '#013674' },
                 ml: 2,
                 fontSize: '1.25rem'
               }}
@@ -100,7 +100,7 @@ const RadioGroup = ({
             <FormControlLabel
               key={option.value}
               value={option.value}
-              control={<Radio sx={{ '&.Mui-checked': { color: '#3b82f6' } }} />}
+              control={<Radio sx={{ '&.Mui-checked': { color: '#013674' } }} />}
               label={option.label}
               disabled={option.disabled}
               className={option.className}
