@@ -6,20 +6,24 @@ import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useSaleschannelsStyles } from "./styled";
 import { SALES_CHANNEL_OPTIONS } from "./const";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
-const SalesChannelStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
+const SalesChannelStep = () => {
+  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
   const classes = useSaleschannelsStyles();
 
   const handleToggle = (optionId: string) => {
-    const currentChannels = data.salesChannels;
+    const currentChannels = onboardingData.salesChannels;
     const newChannels = currentChannels.includes(optionId)
       ? currentChannels.filter(id => id !== optionId)
       : [...currentChannels, optionId];
-    
-    updateData("salesChannels", newChannels);
+    setOnboardingData(prev => ({ ...prev, salesChannels: newChannels }));
   };
 
-  const canProceed = data.salesChannels.length > 0;
+  const canProceed = onboardingData.salesChannels.length > 0;
+
+  const onNext = () => setCurrentStep(currentStep + 1);
+  const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
     <Box className={classes.container}>
@@ -52,12 +56,12 @@ const SalesChannelStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
         {SALES_CHANNEL_OPTIONS.map((option) => (
           <Box
             key={option.id}
-            className={`${classes.optionCard} ${data.salesChannels.includes(option.id) ? classes.optionCardSelected : ''}`}
+            className={`${classes.optionCard} ${onboardingData.salesChannels.includes(option.id) ? classes.optionCardSelected : ''}`}
             onClick={() => handleToggle(option.id)}
           >
             <Box className={classes.optionContent}>
               <Checkbox
-                checked={data.salesChannels.includes(option.id)}
+                checked={onboardingData.salesChannels.includes(option.id)}
                 onChange={() => {}}
                 sx={{ mt: 0.5 }}
               />

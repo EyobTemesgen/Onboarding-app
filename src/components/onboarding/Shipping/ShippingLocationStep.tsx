@@ -6,15 +6,20 @@ import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useShippingStyles } from "./styled";
 import { SHIPPING_LOCATION_OPTIONS } from "./const.tsx";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
-const ShippingLocationStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
+const ShippingLocationStep = () => {
+  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
   const classes = useShippingStyles();
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    updateData("shippingLocation", value);
+    setOnboardingData(prev => ({ ...prev, shippingLocation: value }));
   };
 
-  const canProceed = data.shippingLocation !== "";
+  const canProceed = onboardingData.shippingLocation !== "";
+
+  const onNext = () => setCurrentStep(currentStep + 1);
+  const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
     <Box className={classes.container}>
@@ -44,7 +49,7 @@ const ShippingLocationStep = ({ data, updateData, onNext, onPrev }: StepProps) =
       </Box>
 
       <RadioGroup
-        value={data.shippingLocation}
+        value={onboardingData.shippingLocation}
         onChange={handleSelect}
         options={SHIPPING_LOCATION_OPTIONS}
         variant="card"

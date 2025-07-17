@@ -16,6 +16,7 @@ import { StepProps } from "../types";
 import { useProductImportStyles } from "./styled";
 import { SAMPLE_PRODUCTS, IMPORT_METHODS } from "./const";
 import { StyledTooltip } from "./styled";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
 const Tooltip = StyledTooltip;
 
@@ -50,20 +51,24 @@ const tooltipMap = {
   ),
 };
 
-const ProductImportStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
+const ProductImportStep = () => {
+  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
   const [importMethod, setImportMethod] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState(false);
   const classes = useProductImportStyles();
 
   const handleMethodSelect = (method: string) => {
     setImportMethod(method);
-    updateData("productImport", method);
+    setOnboardingData(prev => ({ ...prev, productImport: method }));
     
     // Simulate import process
     setTimeout(() => {
       setShowSuccess(true);
     }, 1500);
   };
+
+  const onNext = () => setCurrentStep(currentStep + 1);
+  const onPrev = () => setCurrentStep(currentStep - 1);
 
   if (showSuccess) {
     return (

@@ -6,15 +6,20 @@ import { Typography, Box } from "@mui/material";
 import { StepProps } from "../types";
 import { useInventoryTrackingStyles } from "./styled";
 import { INVENTORY_TRACKING_OPTIONS } from "./const.tsx";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
-const InventoryTrackingStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
+const InventoryTrackingStep = () => {
+  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
   const classes = useInventoryTrackingStyles();
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    updateData("inventoryTracking", value);
+    setOnboardingData(prev => ({ ...prev, inventoryTracking: value }));
   };
 
-  const canProceed = data.inventoryTracking !== "";
+  const canProceed = onboardingData.inventoryTracking !== "";
+
+  const onNext = () => setCurrentStep(currentStep + 1);
+  const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
     <Box className={classes.container}>
@@ -44,7 +49,7 @@ const InventoryTrackingStep = ({ data, updateData, onNext, onPrev }: StepProps) 
       </Box>
 
       <RadioGroup
-        value={data.inventoryTracking}
+        value={onboardingData.inventoryTracking}
         onChange={handleSelect}
         options={INVENTORY_TRACKING_OPTIONS}
         variant="card"

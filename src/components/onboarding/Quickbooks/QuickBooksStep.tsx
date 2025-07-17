@@ -8,8 +8,10 @@ import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
+import { useOnboarding } from "@/contexts/OnboardingContext";
 
-const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
+const QuickBooksStep = () => {
+  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
   const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const classes = useQuickbooksStyles();
@@ -18,7 +20,7 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
     if (value === "desktop") {
       setShowEnterpriseDialog(true);
     } else {
-      updateData("quickBooks", value);
+      setOnboardingData(prev => ({ ...prev, quickBooks: value }));
     }
   };
 
@@ -27,11 +29,14 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
     setTimeout(() => {
       setShowEnterpriseDialog(false);
       setEmailSent(false);
-      updateData("quickBooks", "desktop");
+      setOnboardingData(prev => ({ ...prev, quickBooks: "desktop" }));
     }, 2000);
   };
 
-  const canProceed = data.quickBooks !== "";
+  const canProceed = onboardingData.quickBooks !== "";
+
+  const onNext = () => setCurrentStep(currentStep + 1);
+  const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
     <>
@@ -62,7 +67,7 @@ const QuickBooksStep = ({ data, updateData, onNext, onPrev }: StepProps) => {
         </Box>
 
         <RadioGroup
-          value={data.quickBooks}
+          value={onboardingData.quickBooks}
           onChange={handleSelect}
           options={QUICKBOOKS_OPTIONS.map(option => ({
             ...option,

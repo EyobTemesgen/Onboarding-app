@@ -1,5 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useOnboarding } from "@/contexts/OnboardingContext";
+import { useOnboardingFlowStyles } from "./styled";
 import { Box, Typography } from "@mui/material";
 import { Card } from "@/components/ui/card";
 import { LinearProgress } from "@mui/material";
@@ -10,22 +13,18 @@ import SalesChannelStep from "../Saleschannels/SalesChannelStep";
 import ShippingLocationStep from "../Shipping/ShippingLocationStep";
 import OnboardingComplete from "../Finish/OnboardingComplete";
 import { OnboardingData } from "../types";
-import { useOnboardingFlowStyles } from "./styled";
-import { useSearchParams } from "react-router-dom";
 import WelcomeStep from "../Welcome/WelcomeStep";
 
 const OnboardingFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const stepParam = Number(searchParams.get("step")) || 0;
-  const [currentStep, setCurrentStep] = useState(stepParam);
-  const [onboardingData, setOnboardingData] = useState<OnboardingData>({
-    salesChannels: [],
-    inventoryTracking: "",
-    shippingLocation: "",
-    quickBooks: "",
-    productImport: "",
-  });
+  const { currentStep, setCurrentStep, onboardingData, setOnboardingData } = useOnboarding();
   const classes = useOnboardingFlowStyles();
+
+  useEffect(() => {
+    setCurrentStep(stepParam);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setSearchParams({ step: String(currentStep) });
@@ -46,7 +45,7 @@ const OnboardingFlow = () => {
     }
   };
 
-  const updateData = (key: keyof OnboardingData, value: unknown) => {
+  const updateData = (key: keyof typeof onboardingData, value: unknown) => {
     setOnboardingData(prev => ({
       ...prev,
       [key]: value
@@ -58,50 +57,15 @@ const OnboardingFlow = () => {
       case 0:
         return <WelcomeStep onNext={nextStep} />;
       case 1:
-        return (
-          <SalesChannelStep
-            data={onboardingData}
-            updateData={updateData}
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+        return <SalesChannelStep />;
       case 2:
-        return (
-          <InventoryTrackingStep
-            data={onboardingData}
-            updateData={updateData}
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+        return <InventoryTrackingStep />;
       case 3:
-        return (
-          <ShippingLocationStep
-            data={onboardingData}
-            updateData={updateData}
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+        return <ShippingLocationStep />;
       case 4:
-        return (
-          <QuickBooksStep
-            data={onboardingData}
-            updateData={updateData}
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+        return <QuickBooksStep />;
       case 5:
-        return (
-          <ProductImportStep
-            data={onboardingData}
-            updateData={updateData}
-            onNext={nextStep}
-            onPrev={prevStep}
-          />
-        );
+        return <ProductImportStep />;
       case 6:
         return <OnboardingComplete />;
       default:
