@@ -12,7 +12,7 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
   },
   contentWrapper: {
     width: '100%',
-    maxWidth: '672px', 
+    maxWidth: '600px', 
   },
   progressContainer: {
     marginBottom: '20px', 
