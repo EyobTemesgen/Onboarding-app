@@ -3,25 +3,13 @@ import { Box, Typography } from "@mui/material";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useFinishStyles } from "./styled";
+import { features, steps } from "./const";
 
-const features = [
-  {
-    icon: <CenterFocusStrong />, bgcolor: "#dbeafe", iconcolor: "#2563eb", title: "Centralized Control", desc: "All channels, one dashboard"
-  },
-  {
-    icon: <FlashOn />, bgcolor: "#dcfce7", iconcolor: "#16a34a", title: "Real-Time Sync", desc: "Instant updates across platforms"
-  },
-  {
-    icon: <Star />, bgcolor: "#f3e8ff", iconcolor: "#9333ea", title: "Expert Support", desc: "We're here when you need us"
-  }
-];
-
-const steps = [
-  { title: "Connect your sales channels", description: "Integrate Shopify, Amazon, and more." },
-  { title: "Import your products", description: "Bring in your catalog from any source." },
-  { title: "Set up inventory locations", description: "Configure warehouses, stores, and more." },
-  { title: "Invite your team", description: "Collaborate and assign roles." },
-];
+const iconMap = {
+  CenterFocusStrong: <CenterFocusStrong />,
+  FlashOn: <FlashOn />,
+  Star: <Star />,
+};
 
 const OnboardingComplete = () => {
   const classes = useFinishStyles();
@@ -54,7 +42,7 @@ const OnboardingComplete = () => {
                 className={classes.featureIcon}
                 sx={{ backgroundColor: f.bgcolor }}
               >
-                <Box sx={{ color: f.iconcolor }}>{f.icon}</Box>
+                <Box sx={{ color: f.iconcolor }}>{iconMap[f.icon]}</Box>
               </Box>
               <Typography className={classes.featureTitle}>{f.title}</Typography>
               <Typography className={classes.featureDesc}>{f.desc}</Typography>
