@@ -1,80 +1,93 @@
-# dr-quickbooks-registration
+# quickbooks-registration
 
-## Project info
-
-**Description:**
 A modern onboarding and registration app for QuickBooks integration, built with React, TypeScript, Vite, and Material-UI (MUI). This project provides a seamless onboarding flow for users to connect sales channels, import products, set up inventory, and more—all with a clean, responsive MUI-powered UI.
 
-**URL**: https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00
+---
 
-## How can I edit this code?
+## Features
+- Guided onboarding flow for QuickBooks integration
+- Connect sales channels, import products, set up inventory, and shipping
+- Responsive, accessible UI built with Material-UI (MUI)
+- Modular, maintainable code structure
+- TypeScript for type safety
+- API integration with Axios
 
-You can edit this project in several ways:
+---
 
-**Use Lovable**
+## Folder Structure
+```
+quickbooks-registration/
+├── public/
+│   └── images/
+│       └── fabicon/
+│           └── favicon.png
+├── src/
+│   ├── App.tsx
+│   ├── App.css
+│   ├── main.tsx
+│   ├── index.css
+│   ├── components/
+│   │   ├── api/
+│   │   │   ├── axios.config.ts
+│   │   │   └── quickbooks.api.ts
+│   │   ├── onboarding/
+│   │   │   ├── Finish/
+│   │   │   ├── InventoryTracking/
+│   │   │   ├── OnboardingFlow/
+│   │   │   ├── ProductImport/
+│   │   │   ├── Quickbooks/
+│   │   │   ├── Saleschannels/
+│   │   │   ├── Shipping/
+│   │   │   ├── Welcome/
+│   │   │   ├── shared/
+│   │   │   └── types.ts
+│   │   ├── ui/
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── checkbox.tsx
+│   │   │   └── radio-group.tsx
+│   ├── contexts/
+│   │   └── OnboardingContext.tsx
+│   └── vite-env.d.ts
+├── index.html
+├── package.json
+├── tsconfig.json
+└── ...
+```
 
-Visit the [Lovable Project](https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00) and start prompting. Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## Getting Started
 
-Clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm (v9+ recommended)
 
-Requirements: Node.js & npm ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
-
+### Setup
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd quickbooks-registration
 
-# Step 2: Navigate to the project directory.
-cd dr-quickbooks-registration
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
+- `npm run dev` — Start the development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview the production build
+- `npm run lint` — Lint the codebase
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- Material-UI (MUI)
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/72511367-7e77-4d1b-bd95-89d6ca888a00) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
-
-# Environment Configuration
-
+## Environment Configuration
 This project uses Vite's environment variable system to support multiple environments.
-
-## Environment Files
 
 - `.env` — Base variables (shared across all environments)
 - `.env.local` — Local developer overrides (not committed)
@@ -85,31 +98,37 @@ This project uses Vite's environment variable system to support multiple environ
 
 **Only variables prefixed with `VITE_` are exposed to the client.**
 
-## Example Variables
-
+Example:
 ```
 VITE_API_URL=https://api.example.com
 VITE_ENV_NAME=prod
 ```
 
-## Usage
-
 To run or build the app for a specific environment, use the `--mode` flag:
-
 ```
 # Development
-vite --mode dev
+npm run dev -- --mode dev
 
 # QA
-yarn dev --mode qa
+npm run dev -- --mode qa
 
 # Staging
 npm run dev -- --mode stage
 
 # Production build
-vite build --mode prod
+npm run build -- --mode prod
 ```
 
-Vite will load variables from `.env`, then `.env.{mode}` (e.g., `.env.dev`), then `.env.local` (if present).
+---
 
-See [Vite Environment Variables](https://vitejs.dev/guide/env-and-mode.html) for more details.
+## Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a pull request
+
+---
+
+## License
+[MIT](LICENSE)
