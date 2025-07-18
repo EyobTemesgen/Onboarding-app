@@ -1,4 +1,4 @@
-# quickbooks-registration
+# dr-qbo-registration
 
 A modern onboarding and registration app for QuickBooks integration, built with React, TypeScript, Vite, and Material-UI (MUI). This project provides a seamless onboarding flow for users to connect sales channels, import products, set up inventory, and more—all with a clean, responsive MUI-powered UI.
 
@@ -16,7 +16,7 @@ A modern onboarding and registration app for QuickBooks integration, built with 
 
 ## Folder Structure
 ```
-quickbooks-registration/
+dr-qbo-registration/
 ├── public/
 │   └── images/
 │       └── fabicon/
@@ -67,7 +67,7 @@ quickbooks-registration/
 ```sh
 # Clone the repository
 git clone <YOUR_GIT_URL>
-cd quickbooks-registration
+cd dr-qbo-registration
 
 # Install dependencies
 npm install
