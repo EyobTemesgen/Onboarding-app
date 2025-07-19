@@ -23,16 +23,15 @@ const WelcomeStep = () => {
           style={{ maxWidth: 60}} 
         />
         <Typography 
-          variant="h3" 
+          variant="h2" 
           component="h1" 
           sx={{ 
-            fontWeight: 'bold', 
             color: '#0f172a',
-            fontSize: '26px', 
+            fontSize: '25px', 
             lineHeight: '32px' 
           }}
         >
-          Welcome to Drive – Smarter Inventory Starts Here
+          Welcome to Fishbowl Drive – Smarter Inventory Starts Here
         </Typography>
         <Typography 
           variant="h6" 
