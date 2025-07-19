@@ -26,9 +26,11 @@ const WelcomeStep = () => {
           variant="h2" 
           component="h1" 
           sx={{ 
-            color: '#0f172a',
-            fontSize: '25px', 
-            lineHeight: '32px' 
+            color: '#1e293b',
+            fontWeight: 800,
+            fontSize: '23px',
+            lineHeight: '36px',
+            letterSpacing: 0,
           }}
         >
           Welcome to Fishbowl Drive – Smarter Inventory Starts Here
@@ -40,7 +42,8 @@ const WelcomeStep = () => {
             maxWidth: '448px', 
             mx: 'auto',
             fontSize: '16px', 
-            lineHeight: '24px'
+            lineHeight: '24px',
+            textAlign: 'center',
           }}
         >
           Get multi-channel control, real-time sync, and workflow automation 
