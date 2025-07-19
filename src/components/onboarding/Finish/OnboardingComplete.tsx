@@ -20,16 +20,16 @@ const OnboardingComplete = () => {
         <Box className={classes.iconCircle}>
           <CheckCircle sx={{ width: 40, height: 40, color: 'white' }} />
         </Box>
-        <Typography className={classes.title}>Onboarding Complete!</Typography>
-        <Typography className={classes.subtitle}>Your Drive control center is ready. You can now manage inventory, orders, and channels from one place.</Typography>
+        <Typography className={classes.title}>That's it! You're ready to Drive.</Typography>
+        <Typography className={classes.subtitle}>Your Drive setup is configured for B2B workflow automation and multi-warehouse management. Time to take control.</Typography>
       </Box>
 
       <Card
         className={classes.styledCard}
         sx={{
           borderRadius: 1,
-          border: `1px solid ${theme => theme.palette.divider}`,
-          backgroundColor: theme => theme.palette.background.paper,
+          border: `1px solid #bfdbfe`,
+          backgroundColor: '#f8fbff',
           color: theme => theme.palette.text.primary,
           boxShadow: theme => theme.shadows[1],
         }}
@@ -67,11 +67,13 @@ const OnboardingComplete = () => {
       </Box>
 
       <Box className={classes.buttonSection}>
-        <Button>
-          Go to Dashboard
-          <ArrowRight sx={{ ml: 2, width: 20, height: 20 }} />
-        </Button>
-        <Typography className={classes.helperText}>Need help? Our support team is always here for you.</Typography>
+        <button className={classes.finishButton}>
+          <span style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            Start Your Free Trial
+          </span>
+          <ArrowRight sx={{ fontSize: 24, verticalAlign: 'middle' }} />
+        </button>
+        <Typography className={classes.helperText}>14-day free trial • Full access • Get your first win today</Typography>
       </Box>
     </Box>
   );
