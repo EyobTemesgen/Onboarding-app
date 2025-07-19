@@ -25,20 +25,20 @@ const ShippingLocationStep = () => {
     <Box className={classes.container}>
       <Box className={classes.headerSection}>
         <Typography 
-          variant="h4" 
-          component="h2" 
-          sx={{ 
-            fontWeight: 'bold', 
+          variant="h4"
+          component="h2"
+          sx={{
+            fontWeight: 600,
             color: '#0f172a',
-            fontSize: '24px', 
+            fontSize: '24px',
             lineHeight: '32px'
           }}
         >
           Where do you fulfill orders?
         </Typography>
         <Typography 
-          variant="body1" 
-          sx={{ 
+          variant="body1"
+          sx={{
             color: '#475569',
             fontSize: '16px',
             lineHeight: '24px'

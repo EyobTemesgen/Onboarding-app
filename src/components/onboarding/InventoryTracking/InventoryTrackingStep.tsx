@@ -50,7 +50,19 @@ const InventoryTrackingStep = () => {
       <RadioGroup
         value={onboardingData.inventoryTracking}
         onChange={handleSelect}
-        options={INVENTORY_TRACKING_OPTIONS}
+        options={INVENTORY_TRACKING_OPTIONS.map(({ icon, ...option }) => ({
+          ...option,
+          label: (
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f172a', fontSize: 16 }}>
+                {option.label.split('\n')[0]}
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#475569', fontSize: 14 }}>
+                {option.label.split('\n')[1]}
+              </Typography>
+            </Box>
+          )
+        }))}
         variant="card"
       />
 

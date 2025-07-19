@@ -43,21 +43,21 @@ const QuickBooksStep = () => {
       <Box className={classes.container}>
         <Box className={classes.headerSection}>
           <Typography 
-            variant="h4" 
-            component="h2" 
-            sx={{ 
-              fontWeight: 'bold', 
-              color: '#111827', 
-              fontSize: '24px', 
+            variant="h4"
+            component="h2"
+            sx={{
+              fontWeight: 600,
+              color: '#0f172a',
+              fontSize: '24px',
               lineHeight: '32px'
             }}
           >
             Do you use QuickBooks for accounting?
           </Typography>
           <Typography 
-            variant="body1" 
-            sx={{ 
-              color: '#4b5563', 
+            variant="body1"
+            sx={{
+              color: '#475569',
               fontSize: '16px',
               lineHeight: '24px'
             }}

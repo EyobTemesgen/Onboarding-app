@@ -67,23 +67,23 @@ const SalesChannelStep = () => {
               />
               <Box className={classes.optionText}>
                 <Typography 
-                  variant="h6" 
-                  component="h3" 
-                  sx={{ 
-                    fontWeight: 500, 
-                    color: '#0f172a', 
-                    fontSize: '16px',
-                    lineHeight: '24px'
+                  variant="h4"
+                  component="h2"
+                  sx={{
+                    fontWeight: 600,
+                    color: '#0f172a',
+                    fontSize: '24px',
+                    lineHeight: '32px'
                   }}
                 >
                   {option.label}
                 </Typography>
                 <Typography 
-                  variant="body2" 
-                  sx={{ 
-                    color: '#475569',   
-                    fontSize: '14px', 
-                    lineHeight: '20px'
+                  variant="body1"
+                  sx={{
+                    color: '#475569',
+                    fontSize: '16px',
+                    lineHeight: '24px'
                   }}
                 >
                   {option.description}
