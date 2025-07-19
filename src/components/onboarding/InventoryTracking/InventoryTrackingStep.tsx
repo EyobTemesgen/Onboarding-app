@@ -6,7 +6,7 @@ import { Typography, Box } from "@mui/material";
 import { useInventoryTrackingStyles } from "./styled";
 import { INVENTORY_TRACKING_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
+import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 
 const InventoryTrackingStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();

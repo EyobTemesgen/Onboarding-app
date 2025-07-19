@@ -24,9 +24,9 @@ export const useFinishStyles = makeStyles<Theme>((theme) => ({
     margin: '0 auto',
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: 'bold !important',
     color: '#111827',
-    fontSize: '22px',
+    fontSize: '22px !important',
     lineHeight: '28px',
   },
   subtitle: {

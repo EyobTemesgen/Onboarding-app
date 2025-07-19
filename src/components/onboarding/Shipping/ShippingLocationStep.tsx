@@ -7,7 +7,7 @@ import { StepProps } from "../types";
 import { useShippingStyles } from "./styled";
 import { SHIPPING_LOCATION_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
+import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 
 const ShippingLocationStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();

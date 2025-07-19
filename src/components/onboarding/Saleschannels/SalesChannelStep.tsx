@@ -7,7 +7,7 @@ import { StepProps } from "../types";
 import { useSaleschannelsStyles } from "./styled";
 import { SALES_CHANNEL_OPTIONS } from "./const";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
+import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 
 const SalesChannelStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();

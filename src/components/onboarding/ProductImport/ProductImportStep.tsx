@@ -17,7 +17,7 @@ import { useProductImportStyles } from "./styled";
 import { SAMPLE_PRODUCTS, IMPORT_METHODS } from "./const";
 import { StyledTooltip } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
+import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 
 const Tooltip = StyledTooltip;
 
