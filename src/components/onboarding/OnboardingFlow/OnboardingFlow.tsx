@@ -12,7 +12,6 @@ import QuickBooksStep from "../Quickbooks/QuickBooksStep";
 import SalesChannelStep from "../Saleschannels/SalesChannelStep";
 import ShippingLocationStep from "../Shipping/ShippingLocationStep";
 import OnboardingComplete from "../Finish/OnboardingComplete";
-import { OnboardingData } from "../types";
 import WelcomeStep from "../Welcome/WelcomeStep";
 
 const OnboardingFlow = () => {
@@ -55,7 +54,7 @@ const OnboardingFlow = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <WelcomeStep onNext={nextStep} />;
+        return <WelcomeStep />;
       case 1:
         return <SalesChannelStep />;
       case 2:
@@ -69,7 +68,7 @@ const OnboardingFlow = () => {
       case 6:
         return <OnboardingComplete />;
       default:
-        return <WelcomeStep onNext={nextStep} />;
+        return <WelcomeStep />;
     }
   };
 

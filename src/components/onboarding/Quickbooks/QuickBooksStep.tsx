@@ -70,30 +70,29 @@ const QuickBooksStep = () => {
         <RadioGroup
           value={onboardingData.quickBooks}
           onChange={handleSelect}
-          options={QUICKBOOKS_OPTIONS.map(option => ({
+          options={QUICKBOOKS_OPTIONS.map(({ icon, badge, iconColor, ...option }) => ({
             ...option,
             label: (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
-                {option.badge && (
-                  <Box sx={{
-                    position: 'absolute',
-                    top: -16,
-                    left: 24,
-                    background: '#22c55e',
-                    color: '#fff',
-                    fontSize: 12,
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 1,
-                    zIndex: 1,
-                  }}>{option.badge}</Box>
-                )}
-                <Box sx={{ flex: 1 }}>
-                  <Typography variant="h6" sx={optionTitleStyle}>{option.label}</Typography>
-                  <Typography variant="body2" sx={optionDescStyle}>{option.description}</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '50%',
+                  background: iconColor ? iconColor + '22' : '#e0e7ef', // 22 for 13% opacity
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mr: 2
+                }}>
+                  {icon}
+                </Box>
+                <Box>
+                  <Typography sx={optionTitleStyle}>{option.label}</Typography>
+                  <Typography sx={optionDescStyle}>{option.description}</Typography>
                 </Box>
               </Box>
-            )
+            ),
+            badge: badge
           }))}
           variant="card"
           sx={{ mt: 4, gap: 3 }}

@@ -52,26 +52,35 @@ const ShippingLocationStep = () => {
       <RadioGroup
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
-        options={SHIPPING_LOCATION_OPTIONS}
+        options={SHIPPING_LOCATION_OPTIONS.map(({ icon, ...option }) => ({
+          ...option,
+          label: (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: option.value === 'home' ? '#e0f2fe' :
+                            option.value === 'warehouse' ? '#dcfce7' :
+                            option.value === 'retail' ? '#f3e8ff' :
+                            option.value === 'third_party' ? '#fef9c3' :
+                            '#f3e8ff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mr: 2
+              }}>
+                {icon}
+              </Box>
+              <Box>
+                <Typography sx={optionTitleStyle}>{option.label.split('\n')[0]}</Typography>
+                <Typography sx={optionDescStyle}>{option.label.split('\n')[1]}</Typography>
+              </Box>
+            </Box>
+          )
+        }))}
         variant="card"
-      >
-        {SHIPPING_LOCATION_OPTIONS.map((option) => (
-          <Box key={option.value} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <input
-              type="radio"
-              value={option.value}
-              checked={onboardingData.shippingLocation === option.value}
-              onChange={(e) => handleSelect(e, option.value)}
-              id={`shipping-location-${option.value}`}
-              className="radio-input"
-            />
-            <label htmlFor={`shipping-location-${option.value}`} className="radio-label">
-              <Typography sx={optionTitleStyle}>{option.label}</Typography>
-              <Typography sx={optionDescStyle}>{option.description}</Typography>
-            </label>
-          </Box>
-        ))}
-      </RadioGroup>
+      />
 
       <Box className={classes.buttonContainer}>
         <Button variant="secondary" size="medium" onClick={onPrev}>
