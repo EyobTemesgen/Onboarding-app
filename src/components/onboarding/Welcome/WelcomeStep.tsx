@@ -76,7 +76,10 @@ const WelcomeStep = () => {
               sx={{ 
                 color: '#475569',
                 fontSize: '14px', 
-                lineHeight: '20px'
+                lineHeight: '20px',
+                textAlign: index === 0 ? 'justify' : undefined,
+                maxWidth: index === 0 ? 220 : undefined,
+                mx: index === 0 ? 'auto' : undefined
               }}
             >
               {feature.description}
