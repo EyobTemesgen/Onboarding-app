@@ -17,6 +17,7 @@ import { useProductImportStyles } from "./styled";
 import { SAMPLE_PRODUCTS, IMPORT_METHODS } from "./const";
 import { StyledTooltip } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
 
 const Tooltip = StyledTooltip;
 
@@ -199,27 +200,10 @@ const ProductImportStep = () => {
                 {iconMap[method.icon]?.(method.iconColor)}
               </Box>
               <div>
-                <Typography 
-                  variant="h6" 
-                  component="h3" 
-                  sx={{ 
-                    fontWeight: 600, 
-                    color: '#0f172a', 
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    mb: 2
-                  }}
-                >
+                <Typography sx={optionTitleStyle}>
                   {method.title}
                 </Typography>
-                <Typography 
-                  variant="body2" 
-                  sx={{ 
-                    color: '#475569', 
-                    fontSize: '14px', 
-                    lineHeight: '20px'
-                  }}
-                >
+                <Typography sx={optionDescStyle}>
                   {method.description}
                 </Typography>
               </div>

@@ -7,6 +7,7 @@ import { StepProps } from "../types";
 import { useShippingStyles } from "./styled";
 import { SHIPPING_LOCATION_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
 
 const ShippingLocationStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -53,7 +54,24 @@ const ShippingLocationStep = () => {
         onChange={handleSelect}
         options={SHIPPING_LOCATION_OPTIONS}
         variant="card"
-      />
+      >
+        {SHIPPING_LOCATION_OPTIONS.map((option) => (
+          <Box key={option.value} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <input
+              type="radio"
+              value={option.value}
+              checked={onboardingData.shippingLocation === option.value}
+              onChange={(e) => handleSelect(e, option.value)}
+              id={`shipping-location-${option.value}`}
+              className="radio-input"
+            />
+            <label htmlFor={`shipping-location-${option.value}`} className="radio-label">
+              <Typography sx={optionTitleStyle}>{option.label}</Typography>
+              <Typography sx={optionDescStyle}>{option.description}</Typography>
+            </label>
+          </Box>
+        ))}
+      </RadioGroup>
 
       <Box className={classes.buttonContainer}>
         <Button variant="secondary" size="medium" onClick={onPrev}>

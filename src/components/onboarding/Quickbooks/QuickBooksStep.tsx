@@ -9,6 +9,7 @@ import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
 
 const QuickBooksStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -88,8 +89,8 @@ const QuickBooksStep = () => {
                   }}>{option.badge}</Box>
                 )}
                 <Box sx={{ flex: 1 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f172a', fontSize: 18, mb: 0.5 }}>{option.label}</Typography>
-                  <Typography variant="body2" sx={{ color: '#475569', fontSize: 15 }}>{option.description}</Typography>
+                  <Typography variant="h6" sx={optionTitleStyle}>{option.label}</Typography>
+                  <Typography variant="body2" sx={optionDescStyle}>{option.description}</Typography>
                 </Box>
               </Box>
             )

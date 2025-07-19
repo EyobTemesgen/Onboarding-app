@@ -6,6 +6,7 @@ import { Typography, Box } from "@mui/material";
 import { useInventoryTrackingStyles } from "./styled";
 import { INVENTORY_TRACKING_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
 
 const InventoryTrackingStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -53,11 +54,11 @@ const InventoryTrackingStep = () => {
         options={INVENTORY_TRACKING_OPTIONS.map(({ icon, ...option }) => ({
           ...option,
           label: (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, color: '#0f172a', fontSize: 16 }}>
+            <Box>
+              <Typography sx={optionTitleStyle}>
                 {option.label.split('\n')[0]}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#475569', fontSize: 14 }}>
+              <Typography sx={optionDescStyle}>
                 {option.label.split('\n')[1]}
               </Typography>
             </Box>

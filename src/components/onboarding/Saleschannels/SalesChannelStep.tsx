@@ -7,6 +7,7 @@ import { StepProps } from "../types";
 import { useSaleschannelsStyles } from "./styled";
 import { SALES_CHANNEL_OPTIONS } from "./const";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import { optionTitleStyle, optionDescStyle } from '../shared/optionStyles';
 
 const SalesChannelStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -66,26 +67,10 @@ const SalesChannelStep = () => {
                 sx={{ mt: 0.5 }}
               />
               <Box className={classes.optionText}>
-                <Typography 
-                  variant="h4"
-                  component="h2"
-                  sx={{
-                    fontWeight: 600,
-                    color: '#0f172a',
-                    fontSize: '24px',
-                    lineHeight: '32px'
-                  }}
-                >
+                <Typography sx={optionTitleStyle}>
                   {option.label}
                 </Typography>
-                <Typography 
-                  variant="body1"
-                  sx={{
-                    color: '#475569',
-                    fontSize: '16px',
-                    lineHeight: '24px'
-                  }}
-                >
+                <Typography sx={optionDescStyle}>
                   {option.description}
                 </Typography>
               </Box>
