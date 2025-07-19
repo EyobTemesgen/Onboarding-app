@@ -16,10 +16,12 @@ const WelcomeStep = () => {
 
   return (
     <Box className={classes.container}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <Box className={classes.iconContainer}>
-          <Package sx={{ width: 32, height: 32, color: 'white' }} />
-        </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+        <img 
+          src="/images/BOLogoNoText.png" 
+          alt="Drive Logo" 
+          style={{ maxWidth: 60}} 
+        />
         <Typography 
           variant="h3" 
           component="h1" 
