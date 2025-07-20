@@ -3,11 +3,48 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
-import { StepProps } from "../types";
 import { useSaleschannelsStyles } from "./styled";
-import { SALES_CHANNEL_OPTIONS } from "./const";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+
+interface SalesChannelOption {
+  id: string;
+  label: string;
+  description: string;
+}
+
+const SALES_CHANNEL_OPTIONS: SalesChannelOption[] = [
+  { 
+    id: "ecommerce", 
+    label: "Shopify or other ecommerce site", 
+    description: "We'll sync your online store automatically" 
+  },
+  { 
+    id: "marketplaces", 
+    label: "Amazon, Walmart, or other marketplaces", 
+    description: "Connect and control pricing across platforms" 
+  },
+  { 
+    id: "b2b", 
+    label: "B2B (email, phone, portal orders)", 
+    description: "Streamline wholesale and direct sales" 
+  },
+  { 
+    id: "manual", 
+    label: "Manual orders (trade shows, spreadsheets)", 
+    description: "Digitize and automate your current process" 
+  },
+  { 
+    id: "retail", 
+    label: "Retail or POS", 
+    description: "Sync in-store and online inventory" 
+  },
+  { 
+    id: "not_selling", 
+    label: "Not selling yet", 
+    description: "We'll prepare you for launch day" 
+  },
+];
 
 const SalesChannelStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -61,11 +98,12 @@ const SalesChannelStep = () => {
             onClick={() => handleToggle(option.id)}
           >
             <Box className={classes.optionContent}>
-              <Checkbox
-                checked={onboardingData.salesChannels.includes(option.id)}
-                onChange={() => {}}
-                sx={{ mt: 0.5 }}
-              />
+              <Box sx={{ mt: 0.5 }}>
+                <Checkbox
+                  checked={onboardingData.salesChannels.includes(option.id)}
+                  onChange={() => {}}
+                />
+              </Box>
               <Box className={classes.optionText}>
                 <Typography sx={optionTitleStyle}>
                   {option.label}
