@@ -56,7 +56,14 @@ export default function OnboardingStepLayout({
         <Typography
           variant="h4"
           component="h2"
-          sx={{ fontWeight: 500, color: '#0f172a', fontSize: '28px', lineHeight: '28px' }}
+          sx={{
+            fontWeight: 700,
+            color: 'rgb(15 23 42 / var(--tw-text-opacity, 1))',
+            fontSize: '1.5rem',
+            lineHeight: '2rem',
+            fontFamily: `'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'sans-serif'`,
+            letterSpacing: '-0.5px',
+          }}
         >
           {title}
         </Typography>
