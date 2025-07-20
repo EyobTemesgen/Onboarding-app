@@ -5,7 +5,6 @@ import { useOnboarding } from "@/contexts/OnboardingContext";
 import { useProductImportStyles } from "./styled";
 import { optionTitleStyle, optionDescStyle } from "@/theme/globalStyles";
 import { SampleProduct, ImportMethod } from "./types";
-import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const SAMPLE_PRODUCTS: SampleProduct[] = [
   { sku: "WID-001", name: "Wireless Headphones", qty: 150 },
@@ -53,52 +52,48 @@ const infoIconMap = {
 };
 
 
-const ProductImportStep = () => {
-  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
-  const [importMethod, setImportMethod] = useState<string>("");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const classes = useProductImportStyles();
-
-  const handleMethodSelect = (method: string) => {
-    setImportMethod(method);
-    setOnboardingData(prev => ({ ...prev, productImport: method }));
-    setTimeout(() => setShowSuccess(true), 1500);
-  };
-
-  const handleNext = () => setCurrentStep(currentStep + 1);
-  const handlePrev = () => setCurrentStep(currentStep - 1);
-
-  const getSuccessMessage = () => {
-    switch (importMethod) {
-      case "csv":
-        return {
-          title: "Products Imported Successfully!",
-          description: "Your product catalog is now loaded and ready to sync across channels.",
-        };
-      case "quickbooks":
-        return {
-          title: "QuickBooks Connected!",
-          description: "Your QuickBooks inventory data is now syncing automatically.",
-        };
-      default:
-        return {
-          title: "Sample Data Loaded!",
-          description: "You're all set with sample products to explore the system.",
-        };
-    }
-  };
-
-  if (showSuccess) {
-    const { title, description } = getSuccessMessage();
-    return (
-      <OnboardingStepLayout
-        title={title}
-        subtitle={description}
-        onBack={handlePrev}
-        onNext={handleNext}
-        nextLabel="Continue Setup"
-        hideComplete
-      >
+export default {
+  title: "Bring In Your Products, Your Way",
+  subtitle: "Choose the method that works best for you. You can always add more products later.",
+  topContent: undefined,
+  hideBack: false,
+  hideNext: false,
+  hideComplete: true,
+  nextLabel: "Continue Setup",
+  completeLabel: undefined,
+  getDisableNext: (onboardingData) => !onboardingData.productImport,
+  getDisableComplete: undefined,
+  Content: ({ onboardingData, setOnboardingData }) => {
+    const [importMethod, setImportMethod] = useState("");
+    const [showSuccess, setShowSuccess] = useState(false);
+    const classes = useProductImportStyles();
+    const handleMethodSelect = (method) => {
+      setImportMethod(method);
+      setOnboardingData(prev => ({ ...prev, productImport: method }));
+      setTimeout(() => setShowSuccess(true), 1500);
+    };
+    const getSuccessMessage = () => {
+      switch (importMethod) {
+        case "csv":
+          return {
+            title: "Products Imported Successfully!",
+            description: "Your product catalog is now loaded and ready to sync across channels.",
+          };
+        case "quickbooks":
+          return {
+            title: "QuickBooks Connected!",
+            description: "Your QuickBooks inventory data is now syncing automatically.",
+          };
+        default:
+          return {
+            title: "Sample Data Loaded!",
+            description: "You're all set with sample products to explore the system.",
+          };
+      }
+    };
+    if (showSuccess) {
+      const { title, description } = getSuccessMessage();
+      return (
         <Box className={classes.previewBox}>
           <Typography variant="h6" component="h3" className={classes.previewTitleStyle}>
             {importMethod === "sample" ? "Sample products loaded:" : "Preview of imported products:"}
@@ -113,50 +108,39 @@ const ProductImportStep = () => {
             ))}
           </Box>
         </Box>
-      </OnboardingStepLayout>
-    );
-  }
-
-  return (
-    <OnboardingStepLayout
-      title="Bring In Your Products, Your Way"
-      subtitle="Choose the method that works best for you. You can always add more products later."
-      onBack={handlePrev}
-      onNext={handleNext}
-      nextLabel="Continue Setup"
-      disableNext={!importMethod}
-      hideComplete
-    >
-      <Box className={classes.methodGrid}>
-        {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
-          <Box key={key} className={classes.methodCard} onClick={() => handleMethodSelect(key)}>
-            <Box className={classes.methodContent}>
-              <Box 
-                className={classes.methodIcon} 
-                sx={{ 
-                  backgroundColor: key === 'csv' ? '#dbeafe' : 
-                                key === 'quickbooks' ? '#dcfce7' : 
-                                '#f3e8ff'
-                }}
-              >
-                {iconMap[icon]}
-              </Box>
-              <Box>
-                <Typography sx={optionTitleStyle}>{title}</Typography>
-                <Typography sx={optionDescStyle}>{description}</Typography>
-              </Box>
-              <Box className={classes.methodInfo}>
-                {infoIconMap[infoIcon]}
-                <Typography className={classes.infoTextStyle}>{infoText}</Typography>
-                <Help sx={{ width: 12, height: 12, color: '#64748b', ml: 0.5 }} />
+      );
+    }
+    return (
+      <>
+        <Box className={classes.methodGrid}>
+          {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
+            <Box key={key} className={classes.methodCard} onClick={() => handleMethodSelect(key)}>
+              <Box className={classes.methodContent}>
+                <Box 
+                  className={classes.methodIcon} 
+                  sx={{ 
+                    backgroundColor: key === 'csv' ? '#dbeafe' : 
+                                  key === 'quickbooks' ? '#dcfce7' : 
+                                  '#f3e8ff'
+                  }}
+                >
+                  {iconMap[icon]}
+                </Box>
+                <Box>
+                  <Typography sx={optionTitleStyle}>{title}</Typography>
+                  <Typography sx={optionDescStyle}>{description}</Typography>
+                </Box>
+                <Box className={classes.methodInfo}>
+                  {infoIconMap[infoIcon]}
+                  <Typography className={classes.infoTextStyle}>{infoText}</Typography>
+                  <Help sx={{ width: 12, height: 12, color: '#64748b', ml: 0.5 }} />
+                </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
-      </Box>
-      <Typography className={classes.helperTextStyle} sx={{ mt: 2, textAlign: 'right', width: '100%' }}>Select an import method to continue</Typography>
-    </OnboardingStepLayout>
-  );
+          ))}
+        </Box>
+        <Typography className={classes.helperTextStyle} sx={{ mt: 2, textAlign: 'right', width: '100%' }}>Select an import method to continue</Typography>
+      </>
+    );
+  }
 };
-
-export default ProductImportStep;

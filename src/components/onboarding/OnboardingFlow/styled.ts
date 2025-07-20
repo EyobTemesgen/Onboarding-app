@@ -12,7 +12,7 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
   },
   contentWrapper: {
     width: '100%',
-    maxWidth: '600px', 
+    maxWidth: '610px',
   },
   progressContainer: {
     marginBottom: '20px', 
@@ -31,12 +31,5 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
   progressText: {
     fontSize: '10px', 
     color: '#475569', 
-  },
-  styledCard: {
-    padding: '20px', 
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', 
-    border: '0',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
-    backdropFilter: 'blur(8px)', 
   },
 })); 

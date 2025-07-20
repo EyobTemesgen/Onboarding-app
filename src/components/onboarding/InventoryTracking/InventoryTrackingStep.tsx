@@ -4,7 +4,6 @@ import { useInventoryTrackingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 import { InventoryTrackingOption } from "./types";
-import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const INVENTORY_TRACKING_OPTIONS: InventoryTrackingOption[] = [
   { value: "none", title: "We don't track inventory yet", description: "Perfect. We'll build your system from the ground up." },
@@ -14,27 +13,23 @@ const INVENTORY_TRACKING_OPTIONS: InventoryTrackingOption[] = [
   { value: "fishbowl", title: "Fishbowl Classic or other ERP", description: "Ready to modernize? We specialize in smooth transitions." }
 ];
 
-const InventoryTrackingStep = () => {
-  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
-  const classes = useInventoryTrackingStyles();
-
-  const handleSelect = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    setOnboardingData(prev => ({ ...prev, inventoryTracking: value }));
-  };
-
-  const onNext = () => setCurrentStep(currentStep + 1);
-  const onPrev = () => setCurrentStep(currentStep - 1);
-
-  return (
-    <OnboardingStepLayout
-      title="How do you track inventory now?"
-      subtitle="Don't worry—we'll work with what you have and eliminate the pain points."
-      onBack={onPrev}
-      onNext={onNext}
-      disableNext={!onboardingData.inventoryTracking}
-      nextLabel="Set Up My System"
-      hideComplete
-    >
+export default {
+  title: "How do you track inventory now?",
+  subtitle: "Don't worry—we'll work with what you have and eliminate the pain points.",
+  topContent: undefined,
+  hideBack: false,
+  hideNext: false,
+  hideComplete: true,
+  nextLabel: "Set Up My System",
+  completeLabel: undefined,
+  getDisableNext: (onboardingData) => !onboardingData.inventoryTracking,
+  getDisableComplete: undefined,
+  Content: ({ onboardingData, setOnboardingData }) => {
+    const classes = useInventoryTrackingStyles();
+    const handleSelect = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
+      setOnboardingData(prev => ({ ...prev, inventoryTracking: value }));
+    };
+    return (
       <RadioGroup
         value={onboardingData.inventoryTracking}
         onChange={handleSelect}
@@ -49,8 +44,6 @@ const InventoryTrackingStep = () => {
           )
         }))}
       />
-    </OnboardingStepLayout>
-  );
+    );
+  }
 };
-
-export default InventoryTrackingStep;

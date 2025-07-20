@@ -8,7 +8,6 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle, stepTitleStyle } from '@/theme/globalStyles';
 import { QuickBooksOption } from "./types";
-import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const QUICKBOOKS_OPTIONS: QuickBooksOption[] = [
   {
@@ -43,52 +42,45 @@ const QUICKBOOKS_OPTIONS: QuickBooksOption[] = [
   },
 ];
 
-const QuickBooksStep = () => {
-  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
-  const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
-  const classes = useQuickbooksStyles();
-
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    if (value === "desktop") {
-      setShowEnterpriseDialog(true);
-    } else {
-      setOnboardingData(prev => ({ ...prev, quickBooks: value }));
-    }
-  };
-
-  const handleSendInfo = () => {
-    setEmailSent(true);
-    setTimeout(() => {
-      setShowEnterpriseDialog(false);
-      setEmailSent(false);
-      setOnboardingData(prev => ({ ...prev, quickBooks: "desktop" }));
-    }, 2000);
-  };
-
-  const handleNext = () => setCurrentStep(currentStep + 1);
-  const handlePrev = () => setCurrentStep(currentStep - 1);
-
-  return (
-    <>
-      <OnboardingStepLayout
-        title="Do you use QuickBooks for accounting?"
-        subtitle="We'll configure the right financial sync to keep everything connected."
-        onBack={handlePrev}
-        onComplete={handleNext}
-        disableComplete={!onboardingData.quickBooks}
-        completeLabel="Complete Setup"
-        hideNext
-      >
+export default {
+  title: "Do you use QuickBooks for accounting?",
+  subtitle: "We'll configure the right financial sync to keep everything connected.",
+  topContent: undefined,
+  hideBack: false,
+  hideNext: true,
+  hideComplete: false,
+  nextLabel: undefined,
+  completeLabel: "Complete Setup",
+  getDisableNext: undefined,
+  getDisableComplete: (onboardingData) => !onboardingData.quickBooks,
+  Content: ({ onboardingData, setOnboardingData }) => {
+    const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
+    const [emailSent, setEmailSent] = useState(false);
+    const classes = useQuickbooksStyles();
+    const handleSelect = (event, value) => {
+      if (value === "desktop") {
+        setShowEnterpriseDialog(true);
+      } else {
+        setOnboardingData(prev => ({ ...prev, quickBooks: value }));
+      }
+    };
+    const handleSendInfo = () => {
+      setEmailSent(true);
+      setTimeout(() => {
+        setShowEnterpriseDialog(false);
+        setEmailSent(false);
+        setOnboardingData(prev => ({ ...prev, quickBooks: "desktop" }));
+      }, 2000);
+    };
+    return (
+      <>
         <RadioGroup
           value={onboardingData.quickBooks}
           onChange={handleSelect}
           options={QUICKBOOKS_OPTIONS.map(({ icon, badge, iconColor, value, ...option }) => {
-            // Determine border color: green for 'online' if not selected, blue if selected
             const isSelected = onboardingData.quickBooks === value;
             let borderColor;
             if (value === 'online' && !isSelected) borderColor = '#bbf7d0';
-            // Pass iconBgColor for icon circle
             return {
               ...option,
               value,
@@ -107,16 +99,14 @@ const QuickBooksStep = () => {
           variant="card"
           sx={{ mt: 1, gap: 3 }}
         />
-      </OnboardingStepLayout>
-      <QuickBooksDesktopDialog
-        open={showEnterpriseDialog}
-        onClose={() => setShowEnterpriseDialog(false)}
-        onSendInfo={handleSendInfo}
-        emailSent={emailSent}
-        icon={QUICKBOOKS_OPTIONS.find(o => o.value === 'desktop')?.icon}
-      />
-    </>
-  );
+        <QuickBooksDesktopDialog
+          open={showEnterpriseDialog}
+          onClose={() => setShowEnterpriseDialog(false)}
+          onSendInfo={handleSendInfo}
+          emailSent={emailSent}
+          icon={QUICKBOOKS_OPTIONS.find(o => o.value === 'desktop')?.icon}
+        />
+      </>
+    );
+  }
 };
-
-export default QuickBooksStep;

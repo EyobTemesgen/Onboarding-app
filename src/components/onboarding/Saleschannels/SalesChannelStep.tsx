@@ -4,7 +4,6 @@ import { Typography, Box } from "@mui/material";
 import { useSaleschannelsStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
-import OnboardingStepLayout from '../OnboardingStepLayout';
 
 interface SalesChannelOption {
   id: string;
@@ -45,33 +44,27 @@ const SALES_CHANNEL_OPTIONS: SalesChannelOption[] = [
   },
 ];
 
-const SalesChannelStep = () => {
-  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
-  const classes = useSaleschannelsStyles();
-
-  const handleToggle = (optionId: string) => {
-    const currentChannels = onboardingData.salesChannels;
-    const newChannels = currentChannels.includes(optionId)
-      ? currentChannels.filter(id => id !== optionId)
-      : [...currentChannels, optionId];
-    setOnboardingData(prev => ({ ...prev, salesChannels: newChannels }));
-  };
-
-  const canProceed = onboardingData.salesChannels.length > 0;
-
-  const onNext = () => setCurrentStep(currentStep + 1);
-  const onPrev = () => setCurrentStep(currentStep - 1);
-
-  return (
-    <OnboardingStepLayout
-      title="Where do you sell today?"
-      subtitle="Select all that apply. We'll configure the right integrations to centralize your operations."
-      onBack={onPrev}
-      onNext={onNext}
-      disableNext={!canProceed}
-      nextLabel="Next"
-      hideComplete
-    >
+export default {
+  title: "Where do you sell today?",
+  subtitle: "Select all that apply. We'll configure the right integrations to centralize your operations.",
+  topContent: undefined,
+  hideBack: false,
+  hideNext: false,
+  hideComplete: true,
+  nextLabel: "Next",
+  completeLabel: undefined,
+  getDisableNext: (onboardingData) => !(onboardingData.salesChannels && onboardingData.salesChannels.length > 0),
+  getDisableComplete: undefined,
+  Content: ({ onboardingData, setOnboardingData }) => {
+    const classes = useSaleschannelsStyles();
+    const handleToggle = (optionId) => {
+      const currentChannels = onboardingData.salesChannels;
+      const newChannels = currentChannels.includes(optionId)
+        ? currentChannels.filter(id => id !== optionId)
+        : [...currentChannels, optionId];
+      setOnboardingData(prev => ({ ...prev, salesChannels: newChannels }));
+    };
+    return (
       <Box className={classes.optionsContainer}>
         {SALES_CHANNEL_OPTIONS.map((option) => (
           <Box
@@ -98,8 +91,6 @@ const SalesChannelStep = () => {
           </Box>
         ))}
       </Box>
-    </OnboardingStepLayout>
-  );
+    );
+  }
 };
-
-export default SalesChannelStep;

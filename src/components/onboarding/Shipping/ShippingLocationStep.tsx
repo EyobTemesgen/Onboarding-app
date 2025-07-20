@@ -6,7 +6,6 @@ import { useShippingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 import * as React from "react";
-import OnboardingStepLayout from '../OnboardingStepLayout';
 
 interface ShippingLocationOption {
   value: string;
@@ -47,29 +46,23 @@ const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
   }
 ];
 
-const ShippingLocationStep = () => {
-  const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
-  const classes = useShippingStyles();
-
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-    setOnboardingData(prev => ({ ...prev, shippingLocation: value }));
-  };
-
-  const canProceed = onboardingData.shippingLocation !== "";
-
-  const onNext = () => setCurrentStep(currentStep + 1);
-  const onPrev = () => setCurrentStep(currentStep - 1);
-
-  return (
-    <OnboardingStepLayout
-      title="Where do you fulfill orders?"
-      subtitle="We'll configure the right fulfillment workflow for your operations."
-      onBack={onPrev}
-      onNext={onNext}
-      disableNext={!canProceed}
-      nextLabel="Set Up Fulfillment"
-      hideComplete
-    >
+export default {
+  title: "Where do you fulfill orders?",
+  subtitle: "We'll configure the right fulfillment workflow for your operations.",
+  topContent: undefined,
+  hideBack: false,
+  hideNext: false,
+  hideComplete: true,
+  nextLabel: "Set Up Fulfillment",
+  completeLabel: undefined,
+  getDisableNext: (onboardingData) => !onboardingData.shippingLocation,
+  getDisableComplete: undefined,
+  Content: ({ onboardingData, setOnboardingData }) => {
+    const classes = useShippingStyles();
+    const handleSelect = (event, value) => {
+      setOnboardingData(prev => ({ ...prev, shippingLocation: value }));
+    };
+    return (
       <RadioGroup
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
@@ -98,8 +91,6 @@ const ShippingLocationStep = () => {
         }))}
         variant="card"
       />
-    </OnboardingStepLayout>
-  );
+    );
+  }
 };
-
-export default ShippingLocationStep;

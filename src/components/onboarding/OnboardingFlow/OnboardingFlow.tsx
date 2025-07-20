@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { useOnboardingFlowStyles } from "./styled";
 import { Box, Typography } from "@mui/material";
-import { Card } from "@/components/ui/card";
 import { LinearProgress } from "@mui/material";
 import ProductImportStep from "../ProductImport/ProductImportStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
@@ -13,6 +12,9 @@ import SalesChannelStep from "../Saleschannels/SalesChannelStep";
 import ShippingLocationStep from "../Shipping/ShippingLocationStep";
 import OnboardingComplete from "../Finish/OnboardingComplete";
 import WelcomeStep from "../Welcome/WelcomeStep";
+import { Card } from '@/components/ui/card';
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Button } from '@/components/ui/button';
 
 const OnboardingFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,26 +53,16 @@ const OnboardingFlow = () => {
     }));
   };
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 0:
-        return <WelcomeStep />;
-      case 1:
-        return <SalesChannelStep />;
-      case 2:
-        return <InventoryTrackingStep />;
-      case 3:
-        return <ShippingLocationStep />;
-      case 4:
-        return <QuickBooksStep />;
-      case 5:
-        return <ProductImportStep />;
-      case 6:
-        return <OnboardingComplete />;
-      default:
-        return <WelcomeStep />;
-    }
-  };
+  const steps = [
+    WelcomeStep,
+    SalesChannelStep,
+    InventoryTrackingStep,
+    ShippingLocationStep,
+    QuickBooksStep,
+    ProductImportStep,
+    OnboardingComplete,
+  ];
+  const step = steps[currentStep] || steps[0];
 
   return (
     <Box className={classes.mainContainer}>
@@ -99,16 +91,78 @@ const OnboardingFlow = () => {
         )}
         
         <Card
-          className={classes.styledCard}
           sx={{
-            borderRadius: 1,
-            border: `1px solid ${theme => theme.palette.divider}`,
-            backgroundColor: theme => theme.palette.background.paper,
-            color: theme => theme.palette.text.primary,
-            boxShadow: theme => theme.shadows[1],
+            borderRadius: '8px',
+            boxShadow: '0 4px 16px 0 rgba(16, 30, 54, 0.08)',
+            maxWidth: 610,
+            margin: '12px auto',
+            padding: '12px 16px 10px 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2,
           }}
         >
-          {renderStep()}
+          {step.topContent && <Box sx={{ mb: 1 }}>{step.topContent}</Box>}
+          <Box sx={{ textAlign: 'center', mb: 1.5 }}>
+            <Typography
+              variant="h4"
+              component="h2"
+              sx={{ fontWeight: 700, fontSize: 24, lineHeight: '32px', color: '#0f172a' }}
+            >
+              {step.title}
+            </Typography>
+            {step.subtitle && (
+              <Typography
+                variant="body1"
+                sx={{ color: '#475569', fontSize: 16, lineHeight: '24px', mt: 1 }}
+              >
+                {step.subtitle}
+              </Typography>
+            )}
+          </Box>
+          <Box sx={{ flex: 1, width: '100%', mb: 1 }}>
+            {step.Content && (
+              <step.Content onboardingData={onboardingData} setOnboardingData={setOnboardingData} />
+            )}
+          </Box>
+          {/* Navigation Buttons */}
+          {!(step.hideBack && step.hideNext && step.hideComplete) && (
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, width: '100%' }}>
+              <Box>
+                {!step.hideBack && currentStep > 0 && (
+                  <Button variant="secondary" size="medium" onClick={prevStep}>
+                    <ArrowBack sx={{ mr: 1, fontSize: 18 }} />
+                    Back
+                  </Button>
+                )}
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                {!step.hideNext && currentStep < steps.length - 1 && (
+                  <Button
+                    variant="primary"
+                    size="medium"
+                    onClick={nextStep}
+                    disabled={step.getDisableNext ? step.getDisableNext(onboardingData) : false}
+                  >
+                    {step.nextLabel || 'Next'}
+                    <ArrowForward sx={{ ml: 1, fontSize: 18 }} />
+                  </Button>
+                )}
+                {!step.hideComplete && currentStep < steps.length - 1 && (
+                  <Button
+                    variant="primary"
+                    size="medium"
+                    onClick={nextStep}
+                    disabled={step.getDisableComplete ? step.getDisableComplete(onboardingData) : false}
+                  >
+                    {step.completeLabel || 'Complete Setup'}
+                    <ArrowForward sx={{ ml: 1, fontSize: 18 }} />
+                  </Button>
+                )}
+              </Box>
+            </Box>
+          )}
         </Card>
       </Box>
     </Box>

@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { useWelcomeStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import OnboardingStepLayout from "../OnboardingStepLayout";
 
 const WELCOME_FEATURES = [
   {
@@ -30,79 +29,79 @@ const WELCOME_FEATURES = [
   },
 ];
 
-const WelcomeStep = () => {
-  const classes = useWelcomeStyles();
-  const { setCurrentStep } = useOnboarding();
-
-  return (
-    <OnboardingStepLayout
-      title="Welcome to Fishbowl Drive – Smarter Inventory Starts Here"
-      subtitle="Get multi-channel control, real-time sync, and workflow automation up and running in minutes. Your growing business deserves modern inventory management."
-      hideNext
-      hideComplete
-      hideBack
-      topContent={
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
-          <img src="/images/BOLogoNoText.png" alt="Drive Logo" style={{ maxWidth: 60, marginBottom: 16 }} />
-        </Box>
-      }
-    >
-      <Box className={classes.highlights}>
-        {WELCOME_FEATURES.map(({ icon, title, description, iconBackgroundColor, iconColor }, index) => (
-          <Box key={index} className={classes.highlightCard}>
-            <Box
-              className={classes.highlightIcon}
-              sx={{ backgroundColor: iconBackgroundColor }}
-            >
-              {React.cloneElement(icon, { sx: { color: iconColor } })}
+export default {
+  title: "Welcome to Fishbowl Drive – Smarter Inventory Starts Here",
+  subtitle: "Get multi-channel control, real-time sync, and workflow automation up and running in minutes. Your growing business deserves modern inventory management.",
+  topContent: (
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
+      <img src="/images/BOLogoNoText.png" alt="Drive Logo" style={{ maxWidth: 60, marginBottom: 16 }} />
+    </Box>
+  ),
+  hideBack: true,
+  hideNext: true,
+  hideComplete: true,
+  nextLabel: undefined,
+  completeLabel: undefined,
+  getDisableNext: undefined,
+  getDisableComplete: undefined,
+  Content: () => {
+    const classes = useWelcomeStyles();
+    return (
+      <>
+        <Box className={classes.highlights}>
+          {WELCOME_FEATURES.map(({ icon, title, description, iconBackgroundColor, iconColor }, index) => (
+            <Box key={index} className={classes.highlightCard}>
+              <Box
+                className={classes.highlightIcon}
+                sx={{ backgroundColor: iconBackgroundColor }}
+              >
+                {React.cloneElement(icon, { sx: { color: iconColor } })}
+              </Box>
+              <Typography
+                variant="h6"
+                component="h3"
+                sx={{ fontWeight: 600, color: "#0f172a", fontSize: 16, lineHeight: "24px" }}
+              >
+                {title}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: 14,
+                  lineHeight: "20px",
+                  color: "#475569",
+                  textAlign: "center",
+                  maxWidth: 240,
+                  mx: "auto",
+                }}
+              >
+                {description}
+              </Typography>
             </Box>
-            <Typography
-              variant="h6"
-              component="h3"
-              sx={{ fontWeight: 600, color: "#0f172a", fontSize: 16, lineHeight: "24px" }}
-            >
-              {title}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                fontSize: 14,
-                lineHeight: "20px",
-                color: "#475569",
-                textAlign: "center",
-                maxWidth: 240,
-                mx: "auto",
-              }}
-            >
-              {description}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <Button
-          variant="primary"
-          size="large"
-          onClick={() => setCurrentStep(1)}
-          twClassName="w-full"
-        >
-          Let’s Go
-        </Button>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#64748b",
-            fontSize: 14,
-            lineHeight: "20px",
-            textAlign: "center",
-          }}
-        >
-          Takes 3 minutes • Set up your first win fast
-        </Typography>
-      </Box>
-    </OnboardingStepLayout>
-  );
+          ))}
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Button
+            variant="primary"
+            size="large"
+            onClick={() => window.location.search = '?step=1'}
+           twClassName="w-full"
+          >
+            Let’s Go
+          </Button>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#64748b",
+              fontSize: 14,
+              lineHeight: "20px",
+              textAlign: "center",
+            }}
+          >
+            Takes 3 minutes • Set up your first win fast
+          </Typography>
+        </Box>
+      </>
+    );
+  }
 };
-
-export default WelcomeStep;
