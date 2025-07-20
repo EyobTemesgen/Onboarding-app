@@ -91,24 +91,27 @@ const QuickBooksStep = () => {
         <RadioGroup
           value={onboardingData.quickBooks}
           onChange={handleSelect}
-          options={QUICKBOOKS_OPTIONS.map(({ icon, badge, iconColor, ...option }) => ({
-            ...option,
-            label: (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Box
-                  className={classes.iconCircle}
-                  style={{ background: iconColor ? iconColor + '22' : '#e0e7ef' }}
-                >
-                  {icon}
-                </Box>
+          options={QUICKBOOKS_OPTIONS.map(({ icon, badge, iconColor, value, ...option }) => {
+            // Determine border color: green for 'online' if not selected, blue if selected
+            const isSelected = onboardingData.quickBooks === value;
+            let borderColor;
+            if (value === 'online' && !isSelected) borderColor = '#bbf7d0';
+            // Pass iconBgColor for icon circle
+            return {
+              ...option,
+              value,
+              label: (
                 <Box>
                   <Typography sx={optionTitleStyle}>{option.label}</Typography>
                   <Typography sx={optionDescStyle}>{option.description}</Typography>
                 </Box>
-              </Box>
-            ),
-            badge: badge
-          }))}
+              ),
+              icon,
+              badge,
+              borderColor,
+              iconBgColor: iconColor ? iconColor + '22' : '#e0e7ef',
+            };
+          })}
           variant="card"
           sx={{ mt: 1, gap: 3 }}
         />
