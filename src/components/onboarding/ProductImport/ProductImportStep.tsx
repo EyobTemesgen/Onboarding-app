@@ -96,6 +96,7 @@ const ProductImportStep = () => {
         subtitle={description}
         onBack={handlePrev}
         onNext={handleNext}
+        nextLabel="Continue Setup"
         hideComplete
       >
         <Box className={classes.previewBox}>
@@ -121,9 +122,10 @@ const ProductImportStep = () => {
       title="Bring In Your Products, Your Way"
       subtitle="Choose the method that works best for you. You can always add more products later."
       onBack={handlePrev}
+      onNext={handleNext}
+      nextLabel="Continue Setup"
       disableNext={!importMethod}
       hideComplete
-      hideNext
     >
       <Box className={classes.methodGrid}>
         {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
