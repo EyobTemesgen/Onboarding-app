@@ -58,4 +58,24 @@ export const useQuickbooksStyles = makeStyles<Theme>(() => ({
       backgroundColor: '#c2410c',
     },
   },
+  titleStyle: {
+    fontWeight: 500,
+    color: '#0f172a',
+    fontSize: '28px !important',
+    lineHeight: '28px',
+  },
+  subtitleStyle: {
+    color: '#475569',
+    fontSize: '16px',
+    lineHeight: '24px',
+  },
+  iconCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
 })); 

@@ -1,3 +1,10 @@
+export const stepTitleStyle = {
+  fontWeight: 500,
+  color: '#0f172a',
+  fontSize: '28px',
+  lineHeight: '28px',
+};
+
 export const optionTitleStyle = {
   fontWeight: 700,
   color: '#0f172a',

@@ -1,15 +1,47 @@
 
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, Monitor, Computer, Close, CalendarToday } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
-import { StepProps } from "../types";
 import { useQuickbooksStyles } from "./styled";
-import { QUICKBOOKS_OPTIONS } from "./const.tsx";
 import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import { optionTitleStyle, optionDescStyle, stepTitleStyle } from '@/theme/globalStyles';
+import { QuickBooksOption } from "./types";
+
+const QUICKBOOKS_OPTIONS: QuickBooksOption[] = [
+  {
+    value: "online",
+    label: "Yes: QuickBooks Online",
+    description: "Excellent. We'll sync seamlessly with real-time financial data.",
+    icon: <Monitor />,
+    badge: "Most Popular",
+    iconColor: "#22c55e",
+    highlight: true,
+  },
+  {
+    value: "desktop",
+    label: "Yes: QuickBooks Desktop",
+    description: "Desktop requires our Advanced enterprise solution for full integration.",
+    icon: <Computer />,
+    iconColor: "#f59e42",
+  },
+  {
+    value: "none",
+    label: "No accounting software yet",
+    description: "Perfect. We'll show you our built-in financial reporting features.",
+    icon: <Close />,
+    iconColor: "#60a5fa",
+  },
+  {
+    value: "planning",
+    label: "Planning to use QuickBooks",
+    description: "Smart choice. We'll set up the integration when you're ready.",
+    icon: <CalendarToday />,
+    iconColor: "#a78bfa",
+  },
+];
 
 const QuickBooksStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -34,10 +66,8 @@ const QuickBooksStep = () => {
     }, 2000);
   };
 
-  const canProceed = onboardingData.quickBooks !== "";
-
-  const onNext = () => setCurrentStep(currentStep + 1);
-  const onPrev = () => setCurrentStep(currentStep - 1);
+  const handleNext = () => setCurrentStep(currentStep + 1);
+  const handlePrev = () => setCurrentStep(currentStep - 1);
 
   return (
     <>
@@ -46,22 +76,13 @@ const QuickBooksStep = () => {
           <Typography 
             variant="h4"
             component="h2"
-            sx={{
-              fontWeight: 600,
-              color: '#0f172a',
-              fontSize: '24px',
-              lineHeight: '32px'
-            }}
+            sx={stepTitleStyle}
           >
             Do you use QuickBooks for accounting?
           </Typography>
           <Typography 
             variant="body1"
-            sx={{
-              color: '#475569',
-              fontSize: '16px',
-              lineHeight: '24px'
-            }}
+            className={classes.subtitleStyle}
           >
             We'll configure the right financial sync to keep everything connected.
           </Typography>
@@ -74,16 +95,10 @@ const QuickBooksStep = () => {
             ...option,
             label: (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Box sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
-                  background: iconColor ? iconColor + '22' : '#e0e7ef', // 22 for 13% opacity
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mr: 2
-                }}>
+                <Box
+                  className={classes.iconCircle}
+                  style={{ background: iconColor ? iconColor + '22' : '#e0e7ef' }}
+                >
                   {icon}
                 </Box>
                 <Box>
@@ -95,22 +110,22 @@ const QuickBooksStep = () => {
             badge: badge
           }))}
           variant="card"
-          sx={{ mt: 4, gap: 3 }}
+          sx={{ mt: 1, gap: 3 }}
         />
 
         <Box className={classes.buttonContainer} sx={{ mt: 4 }}>
-          <Button variant="secondary" size="medium" onClick={onPrev}>
-            <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
+          <Button variant="secondary" size="medium" onClick={handlePrev}>
+            <ArrowBack sx={{ mr: 2, width: 16, height: 16 }} />
             Back
           </Button>
           <Button 
             variant="primary"
             size="medium"
-            onClick={onNext} 
-            disabled={!canProceed}
+            onClick={handleNext} 
+            disabled={!onboardingData.quickBooks}
           >
             Complete Setup
-            <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
+            <ArrowForward sx={{ ml: 2, width: 16, height: 16 }} />
           </Button>
         </Box>
       </Box>
