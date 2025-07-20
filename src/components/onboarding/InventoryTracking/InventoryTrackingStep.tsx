@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group.tsx";
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useInventoryTrackingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 import { InventoryTrackingOption } from "./types";
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const INVENTORY_TRACKING_OPTIONS: InventoryTrackingOption[] = [
   { value: "none", title: "We don't track inventory yet", description: "Perfect. We'll build your system from the ground up." },
@@ -27,32 +26,15 @@ const InventoryTrackingStep = () => {
   const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.headerSection}>
-        <Typography
-          variant="h4"
-          component="h2"
-          sx={{
-            fontWeight: 'bold',
-            color: '#0f172a',
-            fontSize: 24,
-            lineHeight: '32px'
-          }}
-        >
-          How do you track inventory now?
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: '#475569',
-            fontSize: 16,
-            lineHeight: '24px'
-          }}
-        >
-          Don't worry—we'll work with what you have and eliminate the pain points.
-        </Typography>
-      </Box>
-
+    <OnboardingStepLayout
+      title="How do you track inventory now?"
+      subtitle="Don't worry—we'll work with what you have and eliminate the pain points."
+      onBack={onPrev}
+      onNext={onNext}
+      disableNext={!onboardingData.inventoryTracking}
+      nextLabel="Set Up My System"
+      hideComplete
+    >
       <RadioGroup
         value={onboardingData.inventoryTracking}
         onChange={handleSelect}
@@ -67,23 +49,7 @@ const InventoryTrackingStep = () => {
           )
         }))}
       />
-
-      <Box className={classes.buttonContainer}>
-        <Button variant="secondary" size="medium" onClick={onPrev}>
-          <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
-          Back
-        </Button>
-        <Button
-          variant="primary"
-          size="medium"
-          onClick={onNext}
-          disabled={!onboardingData.inventoryTracking}
-        >
-          Set Up My System
-          <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
-        </Button>
-      </Box>
-    </Box>
+    </OnboardingStepLayout>
   );
 };
 

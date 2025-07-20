@@ -1,12 +1,12 @@
 
-import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group.tsx";
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Home, Business as Building2, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
+import { Home, Business as Building2, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useShippingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
 import * as React from "react";
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 interface ShippingLocationOption {
   value: string;
@@ -61,32 +61,15 @@ const ShippingLocationStep = () => {
   const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.headerSection}>
-        <Typography 
-          variant="h4"
-          component="h2"
-          sx={{
-            fontWeight: 600,
-            color: '#0f172a',
-            fontSize: '24px',
-            lineHeight: '32px'
-          }}
-        >
-          Where do you fulfill orders?
-        </Typography>
-        <Typography 
-          variant="body1"
-          sx={{
-            color: '#475569',
-            fontSize: '16px',
-            lineHeight: '24px'
-          }}
-        >
-          We'll configure the right fulfillment workflow for your operations.
-        </Typography>
-      </Box>
-
+    <OnboardingStepLayout
+      title="Where do you fulfill orders?"
+      subtitle="We'll configure the right fulfillment workflow for your operations."
+      onBack={onPrev}
+      onNext={onNext}
+      disableNext={!canProceed}
+      nextLabel="Set Up Fulfillment"
+      hideComplete
+    >
       <RadioGroup
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
@@ -115,23 +98,7 @@ const ShippingLocationStep = () => {
         }))}
         variant="card"
       />
-
-      <Box className={classes.buttonContainer}>
-        <Button variant="secondary" size="medium" onClick={onPrev}>
-          <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
-          Back
-        </Button>
-        <Button 
-          variant="primary"
-          size="medium"
-          onClick={onNext} 
-          disabled={!canProceed}
-        >
-          Set Up Fulfillment
-          <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
-        </Button>
-      </Box>
-    </Box>
+    </OnboardingStepLayout>
   );
 };
 

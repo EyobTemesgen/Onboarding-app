@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useFinishStyles } from "./styled";
 import { features, steps } from "./const";
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const iconMap = {
   CenterFocusStrong: <CenterFocusStrong />,
@@ -15,15 +16,18 @@ const OnboardingComplete = () => {
   const classes = useFinishStyles();
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.section}>
+    <OnboardingStepLayout
+      title={"That's it! You're ready to Drive."}
+      subtitle={"Your Drive setup is configured for B2B workflow automation and multi-warehouse management. Time to take control."}
+      hideBack
+      hideNext
+      hideComplete
+    >
+      <Box className={classes.section} sx={{ alignItems: 'center' }}>
         <Box className={classes.iconCircle}>
           <CheckCircle sx={{ width: 40, height: 40, color: 'white' }} />
         </Box>
-        <Typography className={classes.title}>That's it! You're ready to Drive.</Typography>
-        <Typography className={classes.subtitle}>Your Drive setup is configured for B2B workflow automation and multi-warehouse management. Time to take control.</Typography>
       </Box>
-
       <Card
         className={classes.styledCard}
         sx={{
@@ -50,7 +54,6 @@ const OnboardingComplete = () => {
           ))}
         </Box>
       </Card>
-
       <Box className={classes.stepsSection}>
         <Typography className={classes.stepsTitle}>Your next steps:</Typography>
         <Box className={classes.stepsList}>
@@ -65,7 +68,6 @@ const OnboardingComplete = () => {
           ))}
         </Box>
       </Box>
-
       <Box className={classes.buttonSection}>
         <button className={classes.finishButton}>
           <span style={{ display: 'inline-block', verticalAlign: 'middle' }}>
@@ -75,7 +77,7 @@ const OnboardingComplete = () => {
         </button>
         <Typography className={classes.helperText}>14-day free trial • Full access • Get your first win today</Typography>
       </Box>
-    </Box>
+    </OnboardingStepLayout>
   );
 };
 

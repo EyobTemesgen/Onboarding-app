@@ -1,11 +1,10 @@
 
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useSaleschannelsStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 interface SalesChannelOption {
   id: string;
@@ -64,32 +63,15 @@ const SalesChannelStep = () => {
   const onPrev = () => setCurrentStep(currentStep - 1);
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.headerSection}>
-        <Typography 
-          variant="h4" 
-          component="h2" 
-          sx={{ 
-            fontWeight: 'bold', 
-            color: '#0f172a',
-            fontSize: '24px', 
-            lineHeight: '32px'
-          }}
-        >
-          Where do you sell today?
-        </Typography>
-        <Typography 
-          variant="body1" 
-          sx={{ 
-            color: '#475569', 
-            fontSize: '16px',
-            lineHeight: '24px'
-          }}
-        >
-          Select all that apply. We'll configure the right integrations to centralize your operations.
-        </Typography>
-      </Box>
-
+    <OnboardingStepLayout
+      title="Where do you sell today?"
+      subtitle="Select all that apply. We'll configure the right integrations to centralize your operations."
+      onBack={onPrev}
+      onNext={onNext}
+      disableNext={!canProceed}
+      nextLabel="Next"
+      hideComplete
+    >
       <Box className={classes.optionsContainer}>
         {SALES_CHANNEL_OPTIONS.map((option) => (
           <Box
@@ -116,23 +98,7 @@ const SalesChannelStep = () => {
           </Box>
         ))}
       </Box>
-
-      <Box className={classes.buttonContainer}>
-        <Button variant="secondary" size="medium" onClick={onPrev}>
-          <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
-          Back
-        </Button>
-        <Button 
-          variant="primary"
-          size="medium"
-          onClick={onNext} 
-          disabled={!canProceed}
-        >
-          Next
-          <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
-        </Button>
-      </Box>
-    </Box>
+    </OnboardingStepLayout>
   );
 };
 

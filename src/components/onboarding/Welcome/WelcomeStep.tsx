@@ -1,14 +1,10 @@
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { 
-  ArrowForward as ArrowRight, 
-  Hub, 
-  Sync, 
-  AutoMode 
-} from "@mui/icons-material";
+import { Hub, Sync, AutoMode } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
+import { Button } from "@/components/ui/button";
 import { useWelcomeStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
+import OnboardingStepLayout from "../OnboardingStepLayout";
 
 const WELCOME_FEATURES = [
   {
@@ -39,68 +35,43 @@ const WelcomeStep = () => {
   const { setCurrentStep } = useOnboarding();
 
   return (
-    <Box className={classes.page}>
-      {/* Header Section */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-        <img src="/images/BOLogoNoText.png" alt="Drive Logo" style={{ maxWidth: 60 }} />
-
-        <Typography 
-          variant="h2"
-          component="h1"
-          sx={{ 
-            fontWeight: 800,
-            fontSize: '23px',
-            lineHeight: '36px',
-            color: '#1e293b',
-            textAlign: 'center'
-          }}
-        >
-          Welcome to Fishbowl Drive – Smarter Inventory Starts Here
-        </Typography>
-
-        <Typography 
-          variant="h6"
-          sx={{ 
-            fontSize: '16px',
-            lineHeight: '24px',
-            color: '#475569',
-            maxWidth: 448,
-            textAlign: 'center'
-          }}
-        >
-          Get multi-channel control, real-time sync, and workflow automation 
-          up and running in minutes. Your growing business deserves modern inventory management.
-        </Typography>
-      </Box>
-
-      {/* Features Grid */}
+    <OnboardingStepLayout
+      title="Welcome to Fishbowl Drive – Smarter Inventory Starts Here"
+      subtitle="Get multi-channel control, real-time sync, and workflow automation up and running in minutes. Your growing business deserves modern inventory management."
+      hideNext
+      hideComplete
+      hideBack
+      topContent={
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
+          <img src="/images/BOLogoNoText.png" alt="Drive Logo" style={{ maxWidth: 60, marginBottom: 16 }} />
+        </Box>
+      }
+    >
       <Box className={classes.highlights}>
         {WELCOME_FEATURES.map(({ icon, title, description, iconBackgroundColor, iconColor }, index) => (
           <Box key={index} className={classes.highlightCard}>
-            <Box 
+            <Box
               className={classes.highlightIcon}
               sx={{ backgroundColor: iconBackgroundColor }}
             >
-              {React.cloneElement(icon as React.ReactElement, { sx: { color: iconColor } })}
+              {React.cloneElement(icon, { sx: { color: iconColor } })}
             </Box>
-
-            <Typography 
+            <Typography
               variant="h6"
               component="h3"
-              sx={{ fontWeight: 600, color: '#0f172a', fontSize: 16, lineHeight: '24px' }}
+              sx={{ fontWeight: 600, color: "#0f172a", fontSize: 16, lineHeight: "24px" }}
             >
               {title}
             </Typography>
-
-            <Typography 
+            <Typography
               variant="body2"
-              sx={{ 
-                fontSize: 14, 
-                lineHeight: '20px', 
-                color: '#475569', 
-                textAlign: 'center',
+              sx={{
+                fontSize: 14,
+                lineHeight: "20px",
+                color: "#475569",
+                textAlign: "center",
                 maxWidth: 240,
-                mx: 'auto'
+                mx: "auto",
               }}
             >
               {description}
@@ -109,8 +80,7 @@ const WelcomeStep = () => {
         ))}
       </Box>
 
-      {/* CTA Section */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: -1 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Button
           variant="primary"
           size="large"
@@ -118,22 +88,20 @@ const WelcomeStep = () => {
           twClassName="w-full"
         >
           Let’s Go
-          <ArrowRight sx={{ ml: 2, width: 20, height: 20 }} />
         </Button>
-
-        <Typography 
+        <Typography
           variant="body2"
-          sx={{ 
-            color: '#64748b',
+          sx={{
+            color: "#64748b",
             fontSize: 14,
-            lineHeight: '20px',
-            textAlign: 'center'
+            lineHeight: "20px",
+            textAlign: "center",
           }}
         >
           Takes 3 minutes • Set up your first win fast
         </Typography>
       </Box>
-    </Box>
+    </OnboardingStepLayout>
   );
 };
 

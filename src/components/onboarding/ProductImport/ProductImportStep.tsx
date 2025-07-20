@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowBack, ArrowForward, CloudUpload, FlashOn, CheckCircle, Inventory, Description, Help } from "@mui/icons-material";
+import { CloudUpload, FlashOn, CheckCircle, Inventory, Description, Help } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { useProductImportStyles } from "./styled";
 import { optionTitleStyle, optionDescStyle } from "@/theme/globalStyles";
 import { SampleProduct, ImportMethod } from "./types";
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const SAMPLE_PRODUCTS: SampleProduct[] = [
   { sku: "WID-001", name: "Wireless Headphones", qty: 150 },
@@ -90,22 +90,15 @@ const ProductImportStep = () => {
 
   if (showSuccess) {
     const { title, description } = getSuccessMessage();
-
     return (
-      <Box className={classes.successContainer}>
-        <Box className={classes.successIconStyle}>
-          <CheckCircle sx={{ width: 32, height: 32, color: "#16a34a" }} />
-        </Box>
-
-        <Box className={classes.successContent}>
-          <Typography variant="h4" component="h2" className={classes.titleStyle}>
-            {title}
-          </Typography>
-          <Typography variant="body1" className={classes.subtitleStyle}>
-            {description}
-          </Typography>
-        </Box>
-
+      <OnboardingStepLayout
+        title={title}
+        subtitle={description}
+        onBack={handlePrev}
+        onNext={handleNext}
+        nextLabel="Continue Setup"
+        hideComplete
+      >
         <Box className={classes.previewBox}>
           <Typography variant="h6" component="h3" className={classes.previewTitleStyle}>
             {importMethod === "sample" ? "Sample products loaded:" : "Preview of imported products:"}
@@ -120,32 +113,20 @@ const ProductImportStep = () => {
             ))}
           </Box>
         </Box>
-
-        <Box className={classes.buttonContainer}>
-          <Button variant="secondary" size="medium" onClick={handlePrev}>
-            <ArrowBack className={classes.iconStyle} />
-            Back
-          </Button>
-          <Button variant="primary" size="medium" onClick={handleNext}>
-            Continue Setup
-            <ArrowForward className={classes.iconStyle} />
-          </Button>
-        </Box>
-      </Box>
+      </OnboardingStepLayout>
     );
   }
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.headerSection}>
-        <Typography variant="h4" component="h2" className={classes.titleStyle}>
-          Bring In Your Products, Your Way
-        </Typography>
-        <Typography variant="body1" className={classes.subtitleStyle}>
-          Choose the method that works best for you. You can always add more products later.
-        </Typography>
-      </Box>
-
+    <OnboardingStepLayout
+      title="Bring In Your Products, Your Way"
+      subtitle="Choose the method that works best for you. You can always add more products later."
+      onBack={handlePrev}
+      disableNext={!importMethod}
+      onNext={handleNext}
+      nextLabel="Continue Setup"
+      hideComplete
+    >
       <Box className={classes.methodGrid}>
         {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
           <Box key={key} className={classes.methodCard} onClick={() => handleMethodSelect(key)}>
@@ -173,15 +154,8 @@ const ProductImportStep = () => {
           </Box>
         ))}
       </Box>
-
-      <Box className={classes.buttonContainer}>
-        <Button variant="secondary" size="medium" onClick={handlePrev}>
-          <ArrowBack className={classes.iconStyle} />
-          Back
-        </Button>
-        <Typography className={classes.helperTextStyle}>Select an import method to continue</Typography>
-      </Box>
-    </Box>
+      <Typography className={classes.helperTextStyle} sx={{ mt: 2 }}>Select an import method to continue</Typography>
+    </OnboardingStepLayout>
   );
 };
 

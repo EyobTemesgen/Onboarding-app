@@ -1,14 +1,14 @@
 
-import { ArrowBack, ArrowForward, Monitor, Computer, Close, CalendarToday } from "@mui/icons-material";
+import { Monitor, Computer, Close, CalendarToday } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useQuickbooksStyles } from "./styled";
 import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle, stepTitleStyle } from '@/theme/globalStyles';
 import { QuickBooksOption } from "./types";
+import OnboardingStepLayout from '../OnboardingStepLayout';
 
 const QUICKBOOKS_OPTIONS: QuickBooksOption[] = [
   {
@@ -71,23 +71,15 @@ const QuickBooksStep = () => {
 
   return (
     <>
-      <Box className={classes.container}>
-        <Box className={classes.headerSection}>
-          <Typography 
-            variant="h4"
-            component="h2"
-            sx={stepTitleStyle}
-          >
-            Do you use QuickBooks for accounting?
-          </Typography>
-          <Typography 
-            variant="body1"
-            className={classes.subtitleStyle}
-          >
-            We'll configure the right financial sync to keep everything connected.
-          </Typography>
-        </Box>
-
+      <OnboardingStepLayout
+        title="Do you use QuickBooks for accounting?"
+        subtitle="We'll configure the right financial sync to keep everything connected."
+        onBack={handlePrev}
+        onComplete={handleNext}
+        disableComplete={!onboardingData.quickBooks}
+        completeLabel="Complete Setup"
+        hideNext
+      >
         <RadioGroup
           value={onboardingData.quickBooks}
           onChange={handleSelect}
@@ -115,24 +107,7 @@ const QuickBooksStep = () => {
           variant="card"
           sx={{ mt: 1, gap: 3 }}
         />
-
-        <Box className={classes.buttonContainer} sx={{ mt: 4 }}>
-          <Button variant="secondary" size="medium" onClick={handlePrev}>
-            <ArrowBack sx={{ mr: 2, width: 16, height: 16 }} />
-            Back
-          </Button>
-          <Button 
-            variant="primary"
-            size="medium"
-            onClick={handleNext} 
-            disabled={!onboardingData.quickBooks}
-          >
-            Complete Setup
-            <ArrowForward sx={{ ml: 2, width: 16, height: 16 }} />
-          </Button>
-        </Box>
-      </Box>
-
+      </OnboardingStepLayout>
       <QuickBooksDesktopDialog
         open={showEnterpriseDialog}
         onClose={() => setShowEnterpriseDialog(false)}
