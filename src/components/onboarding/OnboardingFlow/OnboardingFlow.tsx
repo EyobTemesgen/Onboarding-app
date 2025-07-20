@@ -123,7 +123,7 @@ const OnboardingFlow = () => {
           </Box>
           <Box sx={{ flex: 1, width: '100%', mb: 1 }}>
             {step.Content && (
-              <step.Content onboardingData={onboardingData} setOnboardingData={setOnboardingData} />
+              <step.Content onboardingData={onboardingData} setOnboardingData={setOnboardingData} setCurrentStep={setCurrentStep} />
             )}
           </Box>
           {/* Navigation Buttons */}

@@ -3,7 +3,6 @@ import { Hub, Sync, AutoMode } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { useWelcomeStyles } from "./styled";
-import { useOnboarding } from "@/contexts/OnboardingContext";
 
 const WELCOME_FEATURES = [
   {
@@ -44,7 +43,7 @@ export default {
   completeLabel: undefined,
   getDisableNext: undefined,
   getDisableComplete: undefined,
-  Content: () => {
+  Content: ({ setCurrentStep }) => {
     const classes = useWelcomeStyles();
     return (
       <>
@@ -84,8 +83,8 @@ export default {
           <Button
             variant="primary"
             size="large"
-            onClick={() => window.location.search = '?step=1'}
-           twClassName="w-full"
+            onClick={() => setCurrentStep(1)}
+            twClassName="w-full"
           >
             Let’s Go
           </Button>
