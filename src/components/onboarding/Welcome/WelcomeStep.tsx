@@ -45,8 +45,8 @@ export default function WelcomeStep({ onboardingData, setOnboardingData, setCurr
       hideNext
       hideComplete
       topContent={
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
-          <img src="/images/BOLogoNoText.png" alt="Drive Logo" style={{ maxWidth: 60, marginBottom: 16 }} />
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+          <Box component="img" src="/images/BOLogoNoText.png" alt="Drive Logo" sx={{ maxWidth: 60, mb: 0}} />
         </Box>
       }
     >
@@ -82,7 +82,7 @@ export default function WelcomeStep({ onboardingData, setOnboardingData, setCurr
           </Box>
         ))}
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}>
         <Button
           variant="primary"
           size="large"

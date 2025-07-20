@@ -44,7 +44,7 @@ export default function OnboardingStepLayout({
         boxShadow: '0 4px 16px 0 rgba(16, 30, 54, 0.08)',
         maxWidth: 610,
         margin: '12px auto',
-        padding: '12px 16px 10px 16px',
+        padding: '25px 16px 0px 16px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
