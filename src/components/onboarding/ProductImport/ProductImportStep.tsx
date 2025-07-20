@@ -3,7 +3,7 @@ import { CloudUpload, FlashOn, CheckCircle, Inventory, Description, Help } from 
 import { Box, Typography } from "@mui/material";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { useProductImportStyles } from "./styled";
-import { optionTitleStyle, optionDescStyle } from "@/theme/globalStyles";
+import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
 import { SampleProduct, ImportMethod } from "./types";
 
 const SAMPLE_PRODUCTS: SampleProduct[] = [

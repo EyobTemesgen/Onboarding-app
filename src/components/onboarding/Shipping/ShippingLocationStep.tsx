@@ -4,7 +4,7 @@ import { Home, Business as Building2, LocalShipping as Truck, Schedule as Clock 
 import { Typography, Box } from "@mui/material";
 import { useShippingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
 import * as React from "react";
 
 interface ShippingLocationOption {

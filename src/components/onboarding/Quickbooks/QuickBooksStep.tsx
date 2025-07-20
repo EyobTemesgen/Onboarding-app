@@ -6,7 +6,7 @@ import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle, stepTitleStyle } from '@/theme/globalStyles';
+import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
 import { QuickBooksOption } from "./types";
 
 const QUICKBOOKS_OPTIONS: QuickBooksOption[] = [

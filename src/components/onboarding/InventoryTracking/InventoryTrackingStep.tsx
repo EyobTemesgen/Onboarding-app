@@ -2,7 +2,7 @@ import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { Typography, Box } from "@mui/material";
 import { useInventoryTrackingStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
 import { InventoryTrackingOption } from "./types";
 
 const INVENTORY_TRACKING_OPTIONS: InventoryTrackingOption[] = [

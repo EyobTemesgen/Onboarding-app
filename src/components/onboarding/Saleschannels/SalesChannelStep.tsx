@@ -3,7 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Typography, Box } from "@mui/material";
 import { useSaleschannelsStyles } from "./styled";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
 
 interface SalesChannelOption {
   id: string;

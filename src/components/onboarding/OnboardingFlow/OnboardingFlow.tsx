@@ -2,8 +2,9 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { useOnboardingFlowStyles, cardStyle } from "./styled";
+import { useOnboardingFlowStyles, cardStyle, optionTitleStyle, optionDescStyle, stepTitleStyle, stepSubtitleStyle } from "./styled";
 import { Box, Typography } from "@mui/material";
+
 import { LinearProgress } from "@mui/material";
 import ProductImportStep from "../ProductImport/ProductImportStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
@@ -89,14 +90,14 @@ const OnboardingFlow = () => {
             <Typography
               variant="h4"
               component="h2"
-              sx={{ fontWeight: 700, fontSize: 24, lineHeight: '32px', color: '#0f172a' }}
+              sx={stepTitleStyle}
             >
               {step.title}
             </Typography>
             {step.subtitle && (
               <Typography
                 variant="body1"
-                sx={{ color: '#475569', fontSize: 16, lineHeight: '24px', mt: 1 }}
+                sx={stepSubtitleStyle}
               >
                 {step.subtitle}
               </Typography>
@@ -107,7 +108,6 @@ const OnboardingFlow = () => {
               <step.Content onboardingData={onboardingData} setOnboardingData={setOnboardingData} setCurrentStep={setCurrentStep} />
             )}
           </Box>
-          {/* Navigation Buttons */}
           {!(step.hideBack && step.hideNext && step.hideComplete) && (
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, width: '100%' }}>
               <Box>

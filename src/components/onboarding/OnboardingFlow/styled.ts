@@ -45,3 +45,31 @@ export const cardStyle = {
   alignItems: 'center',
   gap: 2,
 }; 
+
+export const optionTitleStyle = {
+  fontWeight: 700,
+  color: '#0f172a',
+  fontSize: '15px',
+  lineHeight: '20px',
+};
+
+export const optionDescStyle = {
+  color: '#64748b',
+  fontSize: '13px',
+  lineHeight: '18px',
+  fontWeight: 400,
+}; 
+
+export const stepTitleStyle = {
+  fontWeight: 500,
+  color: '#0f172a',
+  fontSize: '28px',
+  lineHeight: '28px',
+};
+
+export const stepSubtitleStyle = {
+  color: '#475569',
+  fontSize: '16px',
+  lineHeight: '24px',
+  marginTop: 8,
+}; 
