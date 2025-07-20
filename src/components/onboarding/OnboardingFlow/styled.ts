@@ -10,10 +10,6 @@ export const useOnboardingFlowStyles = makeStyles<Theme>(() => ({
     justifyContent: 'center',
     padding: '16px', 
   },
-  contentWrapper: {
-    width: '100%',
-    maxWidth: '610px',
-  },
   progressContainer: {
     marginBottom: '20px', 
   },
@@ -43,7 +39,7 @@ export const cardStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: 2,
+  gap: 1,
 }; 
 
 export const optionTitleStyle = {
@@ -71,5 +67,5 @@ export const stepSubtitleStyle = {
   color: '#475569',
   fontSize: '16px',
   lineHeight: '24px',
-  marginTop: 8,
+  marginTop: 2,
 }; 
