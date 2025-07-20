@@ -3,11 +3,38 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { ArrowForward as ArrowRight, ArrowBack as ArrowLeft, Home, Business as Building2, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
-import { StepProps } from "../types";
 import { useShippingStyles } from "./styled";
-import { SHIPPING_LOCATION_OPTIONS } from "./const.tsx";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import * as React from "react";
+
+interface ShippingLocationOption {
+  value: string;
+  label: string;
+}
+
+const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
+  { 
+    value: "home", 
+    label: "Home-based business\nWe'll set up a simple, efficient fulfillment process."
+  },
+  { 
+    value: "warehouse", 
+    label: "Warehouse or storage facility\nPerfect for scaling operations and managing larger inventories."
+  },
+  { 
+    value: "retail", 
+    label: "Retail store with backroom\nWe'll optimize your existing space for both sales and fulfillment."
+  },
+  { 
+    value: "third_party", 
+    label: "Third-party fulfillment\nWe'll integrate with your fulfillment partners for seamless operations."
+  },
+  { 
+    value: "multiple", 
+    label: "Multiple locations\nWe'll coordinate inventory across all your locations efficiently."
+  }
+];
 
 const ShippingLocationStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -52,30 +79,12 @@ const ShippingLocationStep = () => {
       <RadioGroup
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
-        options={SHIPPING_LOCATION_OPTIONS.map(({ icon, ...option }) => ({
+        options={SHIPPING_LOCATION_OPTIONS.map((option) => ({
           ...option,
           label: (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                background: option.value === 'home' ? '#e0f2fe' :
-                            option.value === 'warehouse' ? '#dcfce7' :
-                            option.value === 'retail' ? '#f3e8ff' :
-                            option.value === 'third_party' ? '#fef9c3' :
-                            '#f3e8ff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mr: 2
-              }}>
-                {icon}
-              </Box>
-              <Box>
-                <Typography sx={optionTitleStyle}>{option.label.split('\n')[0]}</Typography>
-                <Typography sx={optionDescStyle}>{option.label.split('\n')[1]}</Typography>
-              </Box>
+            <Box>
+              <Typography sx={optionTitleStyle}>{option.label.split('\n')[0]}</Typography>
+              <Typography sx={optionDescStyle}>{option.label.split('\n')[1]}</Typography>
             </Box>
           )
         }))}
