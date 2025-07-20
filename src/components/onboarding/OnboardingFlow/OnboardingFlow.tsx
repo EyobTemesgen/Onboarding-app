@@ -2,7 +2,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { useOnboardingFlowStyles } from "./styled";
+import { useOnboardingFlowStyles, cardStyle } from "./styled";
 import { Box, Typography } from "@mui/material";
 import { LinearProgress } from "@mui/material";
 import ProductImportStep from "../ProductImport/ProductImportStep";
@@ -46,13 +46,6 @@ const OnboardingFlow = () => {
     }
   };
 
-  const updateData = (key: keyof typeof onboardingData, value: unknown) => {
-    setOnboardingData(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  };
-
   const steps = [
     WelcomeStep,
     SalesChannelStep,
@@ -90,19 +83,7 @@ const OnboardingFlow = () => {
           </Box>
         )}
         
-        <Card
-          sx={{
-            borderRadius: '8px',
-            boxShadow: '0 4px 16px 0 rgba(16, 30, 54, 0.08)',
-            maxWidth: 610,
-            margin: '12px auto',
-            padding: '12px 16px 10px 16px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 2,
-          }}
-        >
+        <Card sx={cardStyle}>
           {step.topContent && <Box sx={{ mb: 1 }}>{step.topContent}</Box>}
           <Box sx={{ textAlign: 'center', mb: 1.5 }}>
             <Typography
