@@ -2,7 +2,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { useOnboardingFlowStyles, cardStyle, optionTitleStyle, optionDescStyle, stepTitleStyle, stepSubtitleStyle } from "./styled";
+import { useOnboardingFlowStyles, cardStyle, stepTitleStyle, stepSubtitleStyle } from "./styled";
 import { Box, Typography } from "@mui/material";
 
 import { LinearProgress } from "@mui/material";
@@ -86,7 +86,7 @@ const OnboardingFlow = () => {
         
         <Card sx={cardStyle}>
           {step.topContent && <Box sx={{ mb: 1 }}>{step.topContent}</Box>}
-          <Box sx={{ textAlign: 'center', mb: 1.5 }}>
+          <Box sx={{ textAlign: 'center', mb: 1}}>
             <Typography
               variant="h4"
               component="h2"
@@ -109,7 +109,7 @@ const OnboardingFlow = () => {
             )}
           </Box>
           {!(step.hideBack && step.hideNext && step.hideComplete) && (
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, width: '100%' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 1, width: '100%' }}>
               <Box>
                 {!step.hideBack && currentStep > 0 && (
                   <Button variant="secondary" size="medium" onClick={prevStep}>
