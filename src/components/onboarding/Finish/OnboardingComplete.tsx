@@ -22,12 +22,14 @@ const OnboardingComplete = () => {
       hideBack
       hideNext
       hideComplete
-    >
-      <Box className={classes.section} sx={{ alignItems: 'center' }}>
-        <Box className={classes.iconCircle}>
-          <CheckCircle sx={{ width: 40, height: 40, color: 'white' }} />
+      topContent={
+        <Box className={classes.section} sx={{ alignItems: 'center' }}>
+          <Box className={classes.iconCircle}>
+            <CheckCircle sx={{ width: 40, height: 40, color: 'white' }} />
+          </Box>
         </Box>
-      </Box>
+      }
+    >
       <Card
         className={classes.styledCard}
         sx={{
