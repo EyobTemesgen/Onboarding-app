@@ -78,8 +78,10 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     padding: '24px', 
     cursor: 'pointer',
     transition: 'all 0.2s',
+    backgroundColor: '#ffffff',
     '&:hover': {
       borderColor: '#2563eb', 
+      backgroundColor: '#f8fafc',
     },
   },
   methodIcon: {
@@ -89,7 +91,7 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '0 auto',
+    margin: '0 auto 16px',
     '& .MuiSvgIcon-root': {
       width: '24px',
       height: '24px',
@@ -99,7 +101,7 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px', 
+    gap: '12px', 
   },
   methodInfo: {
     display: 'flex',
@@ -108,6 +110,7 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     gap: '4px', 
     fontSize: '12px', 
     color: '#64748b', 
+    marginTop: '8px',
   },
   buttonContainer: {
     display: 'flex',
@@ -132,5 +135,57 @@ export const useProductImportStyles = makeStyles<Theme>(() => ({
     fontSize: '14px', 
     color: '#64748b', 
     alignSelf: 'center',
+  },
+  // New styles extracted from component
+  titleStyle: {
+    fontWeight: 'bold',
+    color: '#0f172a',
+    fontSize: '24px',
+    lineHeight: '32px',
+  },
+  subtitleStyle: {
+    color: '#475569',
+    fontSize: '16px',
+    lineHeight: '24px',
+  },
+  successIconStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  previewTitleStyle: {
+    fontWeight: 600,
+    color: '#0f172a',
+    fontSize: '16px',
+    lineHeight: '24px',
+    marginBottom: 3,
+  },
+  skuStyle: {
+    fontWeight: 500,
+    fontSize: '14px',
+  },
+  nameStyle: {
+    color: '#475569',
+    fontSize: '14px',
+  },
+  qtyStyle: {
+    color: '#16a34a',
+    fontWeight: 500,
+    fontSize: '14px',
+  },
+  methodIconStyle: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  infoTextStyle: {
+    fontSize: '10px',
+  },
+  helperTextStyle: {
+    color: '#475569',
+    fontSize: '14px',
+  },
+  iconStyle: {
+    marginRight: 2,
+    width: 16,
+    height: 16,
   },
 })); 

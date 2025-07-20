@@ -1,56 +1,57 @@
-import * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { 
-  ArrowForward as ArrowRight, 
-  ArrowBack as ArrowLeft, 
-  CloudUpload as Upload, 
-  FlashOn as Zap, 
-  CheckCircle as Check, 
-  Description as FileText, 
-  Help as HelpCircle, 
-  Inventory as Package 
-} from "@mui/icons-material";
-import { Typography, Box, Tooltip as MuiTooltip, TooltipProps as MuiTooltipProps } from "@mui/material";
-import { StepProps } from "../types";
-import { useProductImportStyles } from "./styled";
-import { SAMPLE_PRODUCTS, IMPORT_METHODS } from "./const";
-import { StyledTooltip } from "./styled";
+import { ArrowBack, ArrowForward, CloudUpload, FlashOn, CheckCircle, Inventory, Description, Help } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '@/theme/globalStyles';
+import { useProductImportStyles } from "./styled";
+import { optionTitleStyle, optionDescStyle } from "@/theme/globalStyles";
+import { SampleProduct, ImportMethod } from "./types";
 
-const Tooltip = StyledTooltip;
+const SAMPLE_PRODUCTS: SampleProduct[] = [
+  { sku: "WID-001", name: "Wireless Headphones", qty: 150 },
+  { sku: "LTP-256", name: "Gaming Laptop", qty: 25 },
+  { sku: "MUG-BLU", name: "Coffee Mug - Blue", qty: 200 },
+];
+
+const IMPORT_METHODS: ImportMethod[] = [
+  {
+    key: "csv",
+    icon: "upload",
+    title: "Upload CSV File",
+    description: "Import your existing product list from a spreadsheet or export file.",
+    infoText: "SKU, Name, Quantity format",
+    infoIcon: "filetext",
+  },
+  {
+    key: "quickbooks",
+    icon: "zap",
+    title: "Connect to QuickBooks",
+    description: "Automatically sync your existing inventory data and keep everything up to date.",
+    infoText: "Real-time sync enabled",
+    infoIcon: "zap",
+  },
+  {
+    key: "sample",
+    icon: "package",
+    title: "Start with Sample Data",
+    description: "Explore the system with pre-loaded sample products. Perfect for getting started quickly.",
+    infoText: "Ready to explore immediately",
+    infoIcon: "package",
+  },
+];
 
 const iconMap = {
-  upload: (color: string) => <Upload sx={{ color }} />,
-  zap: (color: string) => <Zap sx={{ color }} />,
-  package: (color: string) => <Package sx={{ color }} />,
-  filetext: (color: string) => <FileText sx={{ color }} />,
+  upload: <CloudUpload sx={{ color: '#2563eb' }} />,
+  zap: <FlashOn sx={{ color: '#16a34a' }} />,
+  package: <Inventory sx={{ color: '#9333ea' }} />,
 };
 
 const infoIconMap = {
-  filetext: <FileText sx={{ width: 12, height: 12 }} />,
-  zap: <Zap sx={{ width: 12, height: 12 }} />,
-  package: <Package sx={{ width: 12, height: 12 }} />,
+  filetext: <Description sx={{ width: 12, height: 12, color: '#64748b' }} />,
+  zap: <FlashOn sx={{ width: 12, height: 12, color: '#64748b' }} />,
+  package: <Inventory sx={{ width: 12, height: 12, color: '#64748b' }} />,
 };
 
-const tooltipMap = {
-  csvTooltip: (
-    <Typography sx={{ fontSize: "12px" }}>
-      Required columns: SKU, Product Name, Quantity<br />Optional: Price, Description, Category
-    </Typography>
-  ),
-  quickbooksTooltip: (
-    <Typography sx={{ fontSize: "12px" }}>
-      Requires QuickBooks Online with inventory tracking enabled
-    </Typography>
-  ),
-  sampleTooltip: (
-    <Typography sx={{ fontSize: "12px" }}>
-      Includes sample SKUs, names, and quantities<br />You can replace with real data anytime
-    </Typography>
-  ),
-};
 
 const ProductImportStep = () => {
   const { onboardingData, setOnboardingData, currentStep, setCurrentStep } = useOnboarding();
@@ -61,94 +62,73 @@ const ProductImportStep = () => {
   const handleMethodSelect = (method: string) => {
     setImportMethod(method);
     setOnboardingData(prev => ({ ...prev, productImport: method }));
-    
-    // Simulate import process
-    setTimeout(() => {
-      setShowSuccess(true);
-    }, 1500);
+    setTimeout(() => setShowSuccess(true), 1500);
   };
 
-  const onNext = () => setCurrentStep(currentStep + 1);
-  const onPrev = () => setCurrentStep(currentStep - 1);
+  const handleNext = () => setCurrentStep(currentStep + 1);
+  const handlePrev = () => setCurrentStep(currentStep - 1);
+
+  const getSuccessMessage = () => {
+    switch (importMethod) {
+      case "csv":
+        return {
+          title: "Products Imported Successfully!",
+          description: "Your product catalog is now loaded and ready to sync across channels.",
+        };
+      case "quickbooks":
+        return {
+          title: "QuickBooks Connected!",
+          description: "Your QuickBooks inventory data is now syncing automatically.",
+        };
+      default:
+        return {
+          title: "Sample Data Loaded!",
+          description: "You're all set with sample products to explore the system.",
+        };
+    }
+  };
 
   if (showSuccess) {
+    const { title, description } = getSuccessMessage();
+
     return (
       <Box className={classes.successContainer}>
-        <Box className={classes.successIcon}>
-          <Check sx={{ width: 32, height: 32, color: '#16a34a' }} />
+        <Box className={classes.successIconStyle}>
+          <CheckCircle sx={{ width: 32, height: 32, color: "#16a34a" }} />
         </Box>
-        
+
         <Box className={classes.successContent}>
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            sx={{ 
-              fontWeight: 'bold', 
-              color: '#0f172a', 
-              fontSize: '24px', 
-              lineHeight: '32px'
-            }}
-          >
-            {importMethod === "csv" ? "Products Imported Successfully!" : 
-             importMethod === "quickbooks" ? "QuickBooks Connected!" : 
-             "Sample Data Loaded!"}
+          <Typography variant="h4" component="h2" className={classes.titleStyle}>
+            {title}
           </Typography>
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: '#475569', 
-              fontSize: '16px',
-              lineHeight: '24px'
-            }}
-          >
-            {importMethod === "csv" 
-              ? "Your product catalog is now loaded and ready to sync across channels."
-              : importMethod === "quickbooks"
-              ? "Your QuickBooks inventory data is now syncing automatically."
-              : "You're all set with sample products to explore the system."
-            }
+          <Typography variant="body1" className={classes.subtitleStyle}>
+            {description}
           </Typography>
         </Box>
 
         <Box className={classes.previewBox}>
-          <Typography 
-            variant="h6" 
-            component="h3" 
-            sx={{ 
-              fontWeight: 600, 
-              color: '#0f172a', 
-              fontSize: '16px',
-              lineHeight: '24px',
-              mb: 3
-            }}
-          >
+          <Typography variant="h6" component="h3" className={classes.previewTitleStyle}>
             {importMethod === "sample" ? "Sample products loaded:" : "Preview of imported products:"}
           </Typography>
           <Box className={classes.previewList}>
-            {SAMPLE_PRODUCTS.map((product, index) => (
-              <Box key={index} className={classes.previewItem}>
-                <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
-                  {product.sku}
-                </Typography>
-                <Typography sx={{ color: '#475569', fontSize: '14px' }}>
-                  {product.name}
-                </Typography>
-                <Typography sx={{ color: '#16a34a', fontWeight: 500, fontSize: '14px' }}>
-                  {product.qty} in stock
-                </Typography>
+            {SAMPLE_PRODUCTS.map((product) => (
+              <Box key={product.sku} className={classes.previewItem}>
+                <Typography className={classes.skuStyle}>{product.sku}</Typography>
+                <Typography className={classes.nameStyle}>{product.name}</Typography>
+                <Typography className={classes.qtyStyle}>{`${product.qty} in stock`}</Typography>
               </Box>
             ))}
           </Box>
         </Box>
 
         <Box className={classes.buttonContainer}>
-          <Button variant="secondary" size="medium" onClick={onPrev}>
-            <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
+          <Button variant="secondary" size="medium" onClick={handlePrev}>
+            <ArrowBack className={classes.iconStyle} />
             Back
           </Button>
-          <Button variant="primary" size="medium" onClick={onNext}>
+          <Button variant="primary" size="medium" onClick={handleNext}>
             Continue Setup
-            <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
+            <ArrowForward className={classes.iconStyle} />
           </Button>
         </Box>
       </Box>
@@ -158,63 +138,36 @@ const ProductImportStep = () => {
   return (
     <Box className={classes.container}>
       <Box className={classes.headerSection}>
-        <Typography 
-          variant="h4" 
-          component="h2" 
-          sx={{ 
-            fontWeight: 'bold', 
-            color: '#0f172a', 
-            fontSize: '24px', 
-            lineHeight: '32px'
-          }}
-        >
+        <Typography variant="h4" component="h2" className={classes.titleStyle}>
           Bring In Your Products, Your Way
         </Typography>
-        <Typography 
-          variant="body1" 
-          sx={{ 
-            color: '#475569', 
-            fontSize: '16px',
-            lineHeight: '24px'
-          }}
-        >
+        <Typography variant="body1" className={classes.subtitleStyle}>
           Choose the method that works best for you. You can always add more products later.
         </Typography>
       </Box>
 
       <Box className={classes.methodGrid}>
-        {IMPORT_METHODS.map(method => (
-          <Box
-            key={method.key}
-            className={classes.methodCard}
-            onClick={() => handleMethodSelect(method.key)}
-            sx={{
-              '&:hover': {
-                borderColor: method.borderColor,
-                // backgroundColor removed to only highlight border
-              }
-            }}
-          >
+        {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
+          <Box key={key} className={classes.methodCard} onClick={() => handleMethodSelect(key)}>
             <Box className={classes.methodContent}>
-              <Box className={classes.methodIcon} sx={{ backgroundColor: method.iconBg }}>
-                {iconMap[method.icon]?.(method.iconColor)}
+              <Box 
+                className={classes.methodIcon} 
+                sx={{ 
+                  backgroundColor: key === 'csv' ? '#dbeafe' : 
+                                key === 'quickbooks' ? '#dcfce7' : 
+                                '#f3e8ff'
+                }}
+              >
+                {iconMap[icon]}
               </Box>
-              <div>
-                <Typography sx={optionTitleStyle}>
-                  {method.title}
-                </Typography>
-                <Typography sx={optionDescStyle}>
-                  {method.description}
-                </Typography>
-              </div>
+              <Box>
+                <Typography sx={optionTitleStyle}>{title}</Typography>
+                <Typography sx={optionDescStyle}>{description}</Typography>
+              </Box>
               <Box className={classes.methodInfo}>
-                {infoIconMap[method.infoIcon]}
-                <Typography sx={{ fontSize: '12px' }}>{method.infoText}</Typography>
-                <Tooltip
-                  title={tooltipMap[method.tooltipKey]}
-                >
-                  <HelpCircle sx={{ width: 12, height: 12, ml: 0.5 }} />
-                </Tooltip>
+                {infoIconMap[infoIcon]}
+                <Typography className={classes.infoTextStyle}>{infoText}</Typography>
+                <Help sx={{ width: 12, height: 12, color: '#64748b', ml: 0.5 }} />
               </Box>
             </Box>
           </Box>
@@ -222,11 +175,11 @@ const ProductImportStep = () => {
       </Box>
 
       <Box className={classes.buttonContainer}>
-        <Button variant="secondary" size="medium" onClick={onPrev}>
-          <ArrowLeft sx={{ mr: 2, width: 16, height: 16 }} />
+        <Button variant="secondary" size="medium" onClick={handlePrev}>
+          <ArrowBack className={classes.iconStyle} />
           Back
         </Button>
-        <Typography className={classes.helperText}>Select an import method to continue</Typography>
+        <Typography className={classes.helperTextStyle}>Select an import method to continue</Typography>
       </Box>
     </Box>
   );

@@ -3,7 +3,7 @@ import { RadioGroup as MuiRadioGroup, FormControlLabel, Radio, Box, Typography }
 
 interface RadioOption {
   value: string;
-  label: string;
+  label: string | React.ReactNode;
   icon?: React.ReactNode;
   disabled?: boolean;
   className?: string;
