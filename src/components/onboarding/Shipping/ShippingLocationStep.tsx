@@ -11,28 +11,39 @@ import * as React from "react";
 interface ShippingLocationOption {
   value: string;
   label: string;
+  description: string;
+  icon: React.ReactNode;
+  iconBg: string;
 }
 
 const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
-  { 
-    value: "home", 
-    label: "Home-based business\nWe'll set up a simple, efficient fulfillment process."
+  {
+    value: "one_location",
+    label: "One location",
+    description: "We'll set up streamlined warehouse management and shipping integrations.",
+    icon: <Home />,
+    iconBg: "#e0f2fe"
   },
-  { 
-    value: "warehouse", 
-    label: "Warehouse or storage facility\nPerfect for scaling operations and managing larger inventories."
+  {
+    value: "multiple_warehouses",
+    label: "Multiple warehouses",
+    description: "Advanced multi-location tracking with smart allocation rules.",
+    icon: <Building2 />,
+    iconBg: "#d1fae5"
   },
-  { 
-    value: "retail", 
-    label: "Retail store with backroom\nWe'll optimize your existing space for both sales and fulfillment."
+  {
+    value: "third_party",
+    label: "3PL or Amazon FBA",
+    description: "Seamless integration with third-party logistics providers.",
+    icon: <Truck />,
+    iconBg: "#f3e8ff"
   },
-  { 
-    value: "third_party", 
-    label: "Third-party fulfillment\nWe'll integrate with your fulfillment partners for seamless operations."
-  },
-  { 
-    value: "multiple", 
-    label: "Multiple locations\nWe'll coordinate inventory across all your locations efficiently."
+  {
+    value: "not_shipping",
+    label: "Not shipping yet",
+    description: "We'll prepare your fulfillment setup for when you're ready to launch.",
+    icon: <Clock />,
+    iconBg: "#e0e7ff"
   }
 ];
 
@@ -80,11 +91,25 @@ const ShippingLocationStep = () => {
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
         options={SHIPPING_LOCATION_OPTIONS.map((option) => ({
-          ...option,
+          value: option.value,
           label: (
-            <Box>
-              <Typography sx={optionTitleStyle}>{option.label.split('\n')[0]}</Typography>
-              <Typography sx={optionDescStyle}>{option.label.split('\n')[1]}</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Box sx={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: option.iconBg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mr: 2
+              }}>
+                {option.icon}
+              </Box>
+              <Box>
+                <Typography sx={optionTitleStyle}>{option.label}</Typography>
+                <Typography sx={optionDescStyle}>{option.description}</Typography>
+              </Box>
             </Box>
           )
         }))}
@@ -102,7 +127,7 @@ const ShippingLocationStep = () => {
           onClick={onNext} 
           disabled={!canProceed}
         >
-          Continue
+          Set Up Fulfillment
           <ArrowRight sx={{ ml: 2, width: 16, height: 16 }} />
         </Button>
       </Box>
