@@ -96,7 +96,6 @@ const ProductImportStep = () => {
         subtitle={description}
         onBack={handlePrev}
         onNext={handleNext}
-        nextLabel="Continue Setup"
         hideComplete
       >
         <Box className={classes.previewBox}>
@@ -123,9 +122,8 @@ const ProductImportStep = () => {
       subtitle="Choose the method that works best for you. You can always add more products later."
       onBack={handlePrev}
       disableNext={!importMethod}
-      onNext={handleNext}
-      nextLabel="Continue Setup"
       hideComplete
+      hideNext
     >
       <Box className={classes.methodGrid}>
         {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
@@ -154,7 +152,7 @@ const ProductImportStep = () => {
           </Box>
         ))}
       </Box>
-      <Typography className={classes.helperTextStyle} sx={{ mt: 2 }}>Select an import method to continue</Typography>
+      <Typography className={classes.helperTextStyle} sx={{ mt: 2, textAlign: 'right', width: '100%' }}>Select an import method to continue</Typography>
     </OnboardingStepLayout>
   );
 };
