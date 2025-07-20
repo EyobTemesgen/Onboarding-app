@@ -3,19 +3,9 @@ import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { Home, Business as Building2, LocalShipping as Truck, Schedule as Clock } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useShippingStyles } from "./styled";
-import { useOnboarding } from "@/contexts/OnboardingContext";
-import { optionTitleStyle, optionDescStyle } from '../OnboardingFlow/styled';
-import * as React from "react";
+import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
 
-interface ShippingLocationOption {
-  value: string;
-  label: string;
-  description: string;
-  icon: React.ReactNode;
-  iconBg: string;
-}
-
-const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
+const SHIPPING_LOCATION_OPTIONS = [
   {
     value: "one_location",
     label: "One location",
@@ -46,23 +36,28 @@ const SHIPPING_LOCATION_OPTIONS: ShippingLocationOption[] = [
   }
 ];
 
-export default {
-  title: "Where do you fulfill orders?",
-  subtitle: "We'll configure the right fulfillment workflow for your operations.",
-  topContent: undefined,
-  hideBack: false,
-  hideNext: false,
-  hideComplete: true,
-  nextLabel: "Set Up Fulfillment",
-  completeLabel: undefined,
-  getDisableNext: (onboardingData) => !onboardingData.shippingLocation,
-  getDisableComplete: undefined,
-  Content: ({ onboardingData, setOnboardingData }) => {
-    const classes = useShippingStyles();
-    const handleSelect = (event, value) => {
-      setOnboardingData(prev => ({ ...prev, shippingLocation: value }));
-    };
-    return (
+type StepProps = {
+  onboardingData: any;
+  setOnboardingData: (fn: any) => void;
+  setCurrentStep: (fn: any) => void;
+};
+
+export default function ShippingLocationStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
+  const classes = useShippingStyles();
+  const handleSelect = (_event, value) => {
+    setOnboardingData(prev => ({ ...prev, shippingLocation: value }));
+  };
+  const canProceed = !!onboardingData.shippingLocation;
+  return (
+    <OnboardingStepLayout
+      title="Where do you fulfill orders?"
+      subtitle="We'll configure the right fulfillment workflow for your operations."
+      onNext={() => setCurrentStep((step) => step + 1)}
+      onBack={() => setCurrentStep((step) => step - 1)}
+      disableNext={!canProceed}
+      nextLabel="Set Up Fulfillment"
+      hideComplete
+    >
       <RadioGroup
         value={onboardingData.shippingLocation}
         onChange={handleSelect}
@@ -83,14 +78,14 @@ export default {
                 {option.icon}
               </Box>
               <Box>
-                <Typography sx={optionTitleStyle}>{option.label}</Typography>
-                <Typography sx={optionDescStyle}>{option.description}</Typography>
+                <Typography sx={{ fontWeight: 700, color: '#0f172a', fontSize: '15px', lineHeight: '20px' }}>{option.label}</Typography>
+                <Typography sx={{ color: '#64748b', fontSize: '13px', lineHeight: '18px', fontWeight: 400 }}>{option.description}</Typography>
               </Box>
             </Box>
           )
         }))}
         variant="card"
       />
-    );
-  }
-};
+    </OnboardingStepLayout>
+  );
+}
