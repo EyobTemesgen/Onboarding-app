@@ -42,6 +42,7 @@ export default function OnboardingStepLayout({
       sx={{
         borderRadius: '8px',
         boxShadow: '0 4px 16px 0 rgba(16, 30, 54, 0.08)',
+        width: 610,
         maxWidth: 610,
         margin: '12px auto',
         padding: '16px',
