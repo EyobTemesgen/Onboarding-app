@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Hub, Sync, AutoMode } from "@mui/icons-material";
+import { Lan, Autorenew, Settings } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { useWelcomeStyles } from "./styled";
@@ -7,21 +7,21 @@ import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
 
 const WELCOME_FEATURES = [
   {
-    icon: <Hub />,
+    icon: <Lan />,
     title: "Multi-Channel Control",
     description: "Sync inventory across all your sales channels automatically",
     iconBackgroundColor: "#d1fae5",
     iconColor: "#059669",
   },
   {
-    icon: <Sync />,
+    icon: <Autorenew />,
     title: "Real-Time Sync",
     description: "Never oversell again with instant inventory updates",
     iconBackgroundColor: "#e0f2fe",
     iconColor: "#0284c7",
   },
   {
-    icon: <AutoMode />,
+    icon: <Settings />,
     title: "Workflow Automation",
     description: "Streamline operations from order to fulfillment",
     iconBackgroundColor: "#f3e8ff",
