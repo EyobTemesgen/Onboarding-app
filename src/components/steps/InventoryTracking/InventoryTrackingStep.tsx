@@ -1,6 +1,6 @@
 import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { Typography, Box } from "@mui/material";
-import { useInventoryTrackingStyles } from "./styled";
+import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
 
 const INVENTORY_TRACKING_OPTIONS = [
@@ -18,7 +18,6 @@ type StepProps = {
 };
 
 export default function InventoryTrackingStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
-  const classes = useInventoryTrackingStyles();
   const handleSelect = (_event, value) => {
     setOnboardingData(prev => ({ ...prev, inventoryTracking: value }));
   };
@@ -33,20 +32,22 @@ export default function InventoryTrackingStep({ onboardingData, setOnboardingDat
       nextLabel="Set Up My System"
       hideComplete
     >
-      <RadioGroup
-        value={onboardingData.inventoryTracking}
-        onChange={handleSelect}
-        variant="card"
-        options={INVENTORY_TRACKING_OPTIONS.map(({ value, title, description }) => ({
-          value,
-          label: (
-            <Box>
-              <Typography sx={{ fontWeight: 700, color: '#0f172a', fontSize: '15px', lineHeight: '20px' }}>{title}</Typography>
-              <Typography sx={{ color: '#64748b', fontSize: '13px', lineHeight: '18px', fontWeight: 400 }}>{description}</Typography>
-            </Box>
-          )
-        }))}
-      />
+      <Box>
+        <RadioGroup
+          value={onboardingData.inventoryTracking}
+          onChange={handleSelect}
+          variant="card"
+          options={INVENTORY_TRACKING_OPTIONS.map(({ value, title, description }) => ({
+            value,
+            label: (
+              <Box>
+                <Typography sx={optionTitleStyle}>{title}</Typography>
+                <Typography sx={optionDescStyle}>{description}</Typography>
+              </Box>
+            )
+          }))}
+        />
+      </Box>
     </OnboardingStepLayout>
   );
 }
