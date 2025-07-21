@@ -29,7 +29,11 @@ const WELCOME_FEATURES = [
   },
 ];
 
-type StepProps = { setCurrentStep: (fn: any) => void };
+type StepProps = {
+  onboardingData?: any;
+  setOnboardingData?: (fn: any) => void;
+  setCurrentStep: (fn: any) => void;
+};
 
 export default function Welcome({ setCurrentStep }: StepProps) {
   const classes = useWelcomeStyles();

@@ -7,8 +7,8 @@ import { features, steps } from "./const";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
 
 type StepProps = {
-  onboardingData: any;
-  setOnboardingData: (fn: any) => void;
+  onboardingData?: any;
+  setOnboardingData?: (fn: any) => void;
   setCurrentStep: (fn: any) => void;
 };
 
