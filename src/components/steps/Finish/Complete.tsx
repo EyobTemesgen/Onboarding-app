@@ -5,12 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useFinishStyles } from "./styled";
 import { features, steps } from "./const";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
-
-type StepProps = {
-  onboardingData?: any;
-  setOnboardingData?: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
-};
+import type { StepProps } from '../types';
 
 const iconMap = {
   CenterFocusStrong: <CenterFocusStrong />,

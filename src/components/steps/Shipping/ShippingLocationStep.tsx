@@ -4,6 +4,7 @@ import { Home, Business as Building2, LocalShipping as Truck, Schedule as Clock 
 import { Typography, Box } from "@mui/material";
 import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
+import type { StepProps } from '../types';
 
 const SHIPPING_LOCATION_OPTIONS = [
   {
@@ -35,12 +36,6 @@ const SHIPPING_LOCATION_OPTIONS = [
     iconBg: "#e0e7ff"
   }
 ];
-
-type StepProps = {
-  onboardingData: any;
-  setOnboardingData: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
-};
 
 export default function ShippingLocationStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
   const handleSelect = (_event, value) => {

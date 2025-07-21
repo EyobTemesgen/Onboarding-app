@@ -2,6 +2,7 @@ import { RadioGroup } from "@/components/ui/radio-group.tsx";
 import { Typography, Box } from "@mui/material";
 import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
+import type { StepProps } from '../types';
 
 const INVENTORY_TRACKING_OPTIONS = [
   { value: "none", title: "We don't track inventory yet", description: "Perfect. We'll build your system from the ground up." },
@@ -10,12 +11,6 @@ const INVENTORY_TRACKING_OPTIONS = [
   { value: "other_tool", title: "Another inventory tool", description: "We'll help you migrate and upgrade your workflow." },
   { value: "fishbowl", title: "Fishbowl Classic or other ERP", description: "Ready to modernize? We specialize in smooth transitions." }
 ];
-
-type StepProps = {
-  onboardingData: any;
-  setOnboardingData: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
-};
 
 export default function InventoryTrackingStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
   const handleSelect = (_event, value) => {

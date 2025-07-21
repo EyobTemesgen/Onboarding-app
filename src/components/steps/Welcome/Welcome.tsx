@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { useWelcomeStyles } from "./styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
+import type { StepProps } from '../types';
 
 const WELCOME_FEATURES = [
   {
@@ -28,12 +29,6 @@ const WELCOME_FEATURES = [
     iconColor: "#7c3aed",
   },
 ];
-
-type StepProps = {
-  onboardingData?: any;
-  setOnboardingData?: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
-};
 
 export default function Welcome({ setCurrentStep }: StepProps) {
   const classes = useWelcomeStyles();

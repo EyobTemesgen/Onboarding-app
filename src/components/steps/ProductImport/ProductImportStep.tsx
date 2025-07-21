@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { useProductImportStyles } from "./styled";
 import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
+import type { StepProps } from '../types';
 
 const SAMPLE_PRODUCTS = [
   { sku: "WID-001", name: "Wireless Headphones", qty: 150 },
@@ -48,12 +49,6 @@ const infoIconMap = {
   filetext: <Description sx={{ width: 12, height: 12, color: '#64748b' }} />,
   zap: <FlashOn sx={{ width: 12, height: 12, color: '#64748b' }} />,
   package: <Inventory sx={{ width: 12, height: 12, color: '#64748b' }} />,
-};
-
-type StepProps = {
-  onboardingData: unknown;
-  setOnboardingData: (fn: unknown) => void;
-  setCurrentStep: (fn: unknown) => void;
 };
 
 export default function ProductImportStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {

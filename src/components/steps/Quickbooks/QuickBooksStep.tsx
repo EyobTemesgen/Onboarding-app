@@ -6,6 +6,7 @@ import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
+import type { StepProps } from '../types';
 
 const QUICKBOOKS_OPTIONS = [
   {
@@ -39,12 +40,6 @@ const QUICKBOOKS_OPTIONS = [
     iconColor: "#a78bfa",
   },
 ];
-
-type StepProps = {
-  onboardingData: any;
-  setOnboardingData: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
-};
 
 export default function QuickBooksStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
   const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
