@@ -6,22 +6,22 @@ import { useOnboardingFlowStyles } from "./styled";
 import { Box, Typography, LinearProgress } from "@mui/material";
 
 // Step components
-import WelcomeStep from "../Welcome/WelcomeStep";
+import Welcome from "../Welcome/Welcome";
 import SalesChannelStep from "../Saleschannels/SalesChannelStep";
 import InventoryTrackingStep from "../InventoryTracking/InventoryTrackingStep";
 import ShippingLocationStep from "../Shipping/ShippingLocationStep";
 import QuickBooksStep from "../Quickbooks/QuickBooksStep";
 import ProductImportStep from "../ProductImport/ProductImportStep";
-import OnboardingComplete from "../Finish/OnboardingComplete";
+import Complete from "../Finish/Complete";
 
 const steps = [
-  WelcomeStep,
+  Welcome,
   SalesChannelStep,
   InventoryTrackingStep,
   ShippingLocationStep,
   QuickBooksStep,
   ProductImportStep,
-  OnboardingComplete,
+  Complete,
 ];
 
 const TOTAL_STEPS = steps.length - 1;

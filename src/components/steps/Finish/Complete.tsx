@@ -18,7 +18,7 @@ const iconMap = {
   Star: <Star />,
 };
 
-export default function OnboardingComplete({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
+export default function Complete({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
   const classes = useFinishStyles();
   return (
     <OnboardingStepLayout

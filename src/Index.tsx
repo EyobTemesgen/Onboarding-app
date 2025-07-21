@@ -1,5 +1,5 @@
 
-import OnboardingFlow from "@/components/onboarding/OnboardingFlow/OnboardingFlow";
+import OnboardingFlow from "@/components/steps/OnboardingFlow/OnboardingFlow";
 import { OnboardingProvider } from "./contexts/OnboardingContext";
 
 const Index = () => {
