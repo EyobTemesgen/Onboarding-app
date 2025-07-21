@@ -1,7 +1,7 @@
 
 import { Monitor, Computer, Close, CalendarToday } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
-import { useQuickbooksStyles } from "./styled";
+import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import QuickBooksDesktopDialog from "./QuickBooksDesktopDialog";
 import { useState } from "react";
 import { RadioGroup } from "@/components/ui/radio-group";
@@ -49,7 +49,6 @@ type StepProps = {
 export default function QuickBooksStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
   const [showEnterpriseDialog, setShowEnterpriseDialog] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
-  const classes = useQuickbooksStyles();
   const handleSelect = (_event, value) => {
     if (value === "desktop") {
       setShowEnterpriseDialog(true);
@@ -89,8 +88,8 @@ export default function QuickBooksStep({ onboardingData, setOnboardingData, setC
               value,
               label: (
                 <Box>
-                  <Typography sx={{ fontWeight: 700, color: '#0f172a', fontSize: '15px', lineHeight: '20px' }}>{option.label}</Typography>
-                  <Typography sx={{ color: '#64748b', fontSize: '13px', lineHeight: '18px', fontWeight: 400 }}>{option.description}</Typography>
+                  <Typography sx={optionTitleStyle}>{option.label}</Typography>
+                  <Typography sx={optionDescStyle}>{option.description}</Typography>
                 </Box>
               ),
               icon,
