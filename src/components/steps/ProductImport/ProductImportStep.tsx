@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CloudUpload, FlashOn, CheckCircle, Inventory, Description, Help } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { useProductImportStyles } from "./styled";
+import { optionTitleStyle, optionDescStyle } from "../OnboardingFlow/styled";
 import OnboardingStepLayout from '../OnboardingFlow/OnboardingStepLayout';
 
 const SAMPLE_PRODUCTS = [
@@ -138,8 +139,8 @@ export default function ProductImportStep({ onboardingData, setOnboardingData, s
                 {iconMap[icon]}
               </Box>
               <Box>
-                <Typography sx={{ fontWeight: 700, color: '#0f172a', fontSize: '15px', lineHeight: '20px' }}>{title}</Typography>
-                <Typography sx={{ color: '#64748b', fontSize: '13px', lineHeight: '18px', fontWeight: 400 }}>{description}</Typography>
+                <Typography sx={optionTitleStyle}>{title}</Typography>
+                <Typography sx={optionDescStyle}>{description}</Typography>
               </Box>
               <Box className={classes.methodInfo}>
                 {infoIconMap[infoIcon]}
