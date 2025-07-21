@@ -50,9 +50,9 @@ const infoIconMap = {
 };
 
 type StepProps = {
-  onboardingData: any;
-  setOnboardingData: (fn: any) => void;
-  setCurrentStep: (fn: any) => void;
+  onboardingData: unknown;
+  setOnboardingData: (fn: unknown) => void;
+  setCurrentStep: (fn: unknown) => void;
 };
 
 export default function ProductImportStep({ onboardingData, setOnboardingData, setCurrentStep }: StepProps) {
@@ -121,6 +121,7 @@ export default function ProductImportStep({ onboardingData, setOnboardingData, s
       nextLabel="Continue Setup"
       disableNext={!canProceed}
       hideComplete
+      hideNext
     >
       <Box className={classes.methodGrid}>
         {IMPORT_METHODS.map(({ key, icon, title, description, infoText, infoIcon }) => (
